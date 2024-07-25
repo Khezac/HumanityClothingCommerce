@@ -1,0 +1,21 @@
+.productCard {
+    max-width: 24%;
+}
+
+.productImg {
+    width: 100%;
+    height: 80%;
+    object-fit: cover;
+    border-radius: 4px;
+}
+
+.productInfo {
+    display: flex;
+    justify-content: space-between;
+    gap: 84px;
+    max-width: 100%;
+}
+
+.productCategory {
+    color: var(--font-selected-color);
+}

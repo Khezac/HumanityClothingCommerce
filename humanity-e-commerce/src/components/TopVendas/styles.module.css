@@ -1,0 +1,16 @@
+.topVendasContainer {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+    margin-top: 24px;
+}
+
+.topVendasTitle {
+    font-size: 32px;
+    font-weight: 600;
+}
+
+.cardList {
+    display: flex;
+    justify-content: space-between;
+}
