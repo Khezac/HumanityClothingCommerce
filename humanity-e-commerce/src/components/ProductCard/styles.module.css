@@ -12,8 +12,7 @@
 .productInfo {
     display: flex;
     justify-content: space-between;
-    gap: 84px;
-    max-width: 100%;
+    width: 100%;
 }
 
 .productCategory {
