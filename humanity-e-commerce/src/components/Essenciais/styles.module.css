@@ -1,0 +1,47 @@
+.essenciaisContainer {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    height:80%;
+    gap: 32px;
+}
+
+.essenciaisContainer > h1 {
+    font-size: 32px;
+    font-weight: 600;
+}
+
+.cardsContainer {
+    display: flex;
+    justify-content: space-between;
+    height: 100%;
+}
+
+.cardMasculino, .cardFeminino {
+    width: 49%;
+    height: 80%;
+    display: flex;
+    align-items: flex-end;
+    justify-content: flex-end;
+    padding: 2rem;
+    padding-right: 3rem;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.cardMasculino > p, .cardFeminino > p{
+    font-size: 32px;
+    color: #F5F6F5;
+    font-weight: 600;
+    text-shadow: 0 0 13px black;
+}
+
+.cardMasculino {
+    background-image: url("../../assets/BGs/CardMasculinoBG.png");
+    background-size: cover;
+}
+
+.cardFeminino {
+    background-image: url("../../assets/BGs/CardFemininoBG.png");
+    background-size: cover;
+}

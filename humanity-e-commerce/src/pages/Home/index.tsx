@@ -2,6 +2,7 @@ import { FirstBanner } from "../../components/HomeFirstBanner"
 import styles from "./styles.module.css"
 import { TopVendas } from "../../components/TopVendas"
 import { RedesBanner } from "../../components/RedesBanner"
+import { Essenciais } from "../../components/Essenciais"
 
 export const Home = () => {
     return (
@@ -9,6 +10,7 @@ export const Home = () => {
             <FirstBanner/>
             <TopVendas/>
             <RedesBanner/>
+            <Essenciais/>
         </main>
     )
 }
