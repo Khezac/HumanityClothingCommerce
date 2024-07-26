@@ -3,6 +3,7 @@ import styles from "./styles.module.css"
 import { TopVendas } from "../../components/TopVendas"
 import { RedesBanner } from "../../components/RedesBanner"
 import { Essenciais } from "../../components/Essenciais"
+import { Navegue } from "../../components/Navegue"
 
 export const Home = () => {
     return (
@@ -11,6 +12,7 @@ export const Home = () => {
             <TopVendas/>
             <RedesBanner/>
             <Essenciais/>
+            <Navegue/>
         </main>
     )
 }
