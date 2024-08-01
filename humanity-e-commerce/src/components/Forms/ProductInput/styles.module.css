@@ -1,0 +1,25 @@
+.inputContainer {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+}
+
+.productInput {
+    display: flex;
+    background-color: transparent;
+    outline: none;
+    border: 2px solid #8DB38B;
+    border-radius: 8px;
+    padding: 1rem;
+    width: 100%;
+}
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+input[type=number]{
+    -moz-appearance: textfield;
+}
