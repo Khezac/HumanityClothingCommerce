@@ -41,6 +41,10 @@
     color: var(--font-color);
 }
 
+.welcome {
+    font-weight: 400;
+}
+
 .userName {
     color: #56876D;
 }

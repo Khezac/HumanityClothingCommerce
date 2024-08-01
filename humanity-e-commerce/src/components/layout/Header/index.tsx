@@ -20,7 +20,7 @@ export const Header = () => {
             </nav>
             <div className={styles.profileNav}>
                 <div className={styles.profileNavText}>
-                    <p>Seja bem-vindo(a)</p>
+                    <p className={styles.welcome}>Seja bem-vindo(a)</p>
                     <p className={styles.userName}>Cláudio</p> {/* MUDAR FUTURAMENTE PARA O NOME DE QUEM ESTIVER LOGADO */}
                 </div>
                 <CgProfile color='#56876D' size={60}/>

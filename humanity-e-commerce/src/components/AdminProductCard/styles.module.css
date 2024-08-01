@@ -1,0 +1,67 @@
+.productInfoRow {
+    height: 9rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding-bottom: 1rem;
+    padding-top: 1rem;
+    border-bottom: 1px solid #DCE4DC;
+}
+
+.productNameColumn {
+    display: flex;
+    width: 60%;
+    align-items: center;
+    gap: 1rem;
+}
+
+.productImg {
+    background-color: #8DB38B;
+    border-radius: 8px;
+    width: 7rem;
+    height: 7rem;
+    object-fit: cover;
+    border: 2px solid #DCE4DC;
+}
+
+.options {
+    cursor: pointer;
+    position: relative;
+}
+
+.optionsBox {
+    width: fit-content;
+    text-wrap: nowrap;
+    padding: 10px;
+    background-color: #F5F6F5;
+    border: 2px solid #8DB38B;
+    border-radius: 8px;
+    list-style: none;
+    position: absolute;
+    transform: translate(0,-100%);
+    top: 0;
+    right: 0;
+    box-shadow: 0 2px 7px 0.3px rgba(0, 0, 0, 0.192);
+}
+
+.clickableOption {
+    border-radius: 6px;
+    padding: 3px 7px 3px 7px;
+    color: #8DB38B;
+    cursor: pointer;
+}
+
+.clickableOption:hover {
+    background-color: #DCE4DC;
+}
+
+.deleteBoxTitle {
+    border-radius: 6px;
+    padding: 3px 7px 3px 7px;
+    color: #8DB38B;
+    cursor: default;
+}
+
+.deleteBoxTitle:hover {
+    background-color: transparent;
+}
