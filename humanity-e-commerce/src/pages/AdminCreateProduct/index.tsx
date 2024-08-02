@@ -1,14 +1,37 @@
 import styles from './styles.module.css'
 import { CreateProductForm } from "../../components/Forms/CreateProductForm"
-import { AiOutlinePlusCircle } from "react-icons/ai";
-import { BiCheckCircle } from "react-icons/bi";
 import { useState } from 'react';
+import { ProductImageCapture } from '../../components/Forms/ProductImageCapture';
+import { postProduct } from '../../services/productService';
 
 export const AdminCreateProduct = () => {
     const [newProduct, setNewProduct] = useState<object>();
+    const [prodImages, setProdImages] = useState<File[]>([]);
+
+    const postNewProduct = async (form:FormData) => {
+        try{
+            const { data } = await postProduct(form);
+            console.log(data)
+        } catch (err) {
+            console.log(err)
+        }
+    }
 
     const handleSubmit = () => {
-        console.log(newProduct)
+        const form = new FormData();
+        form.append("productInfo", JSON.stringify(newProduct))
+        prodImages.forEach((image) => form.append("productImages", image))
+
+        postNewProduct(form);
+    }
+    
+    const handleFile = (files: FileList) => {
+        const filesArray = Array.from(files)
+        if(prodImages.length < 3) {
+            setProdImages((prev) => [...prev, ...filesArray])
+        } else {
+            console.log("Limite de 3 imagens atingido!!!")
+        }
     }
 
     return (
@@ -16,17 +39,7 @@ export const AdminCreateProduct = () => {
             <h1>Novo Produto</h1>
             <div className={styles.infosContainer}>
                 <CreateProductForm setValue={setNewProduct}/>
-                <div className={styles.addImagesContainer}>
-                    <div className={styles.btnContainer}>
-                        <button className={styles.addImageBtn}><AiOutlinePlusCircle size={25}/> Adicionar Imagem</button>
-                    </div>
-                    <div className={styles.imageDisplayContainer}>
-
-                    </div>
-                    <div className={styles.sendBtnContainer}>
-                        <button className={styles.sendProductBtn} onClick={handleSubmit}><BiCheckCircle size={25}/> Criar Produto</button>
-                    </div>
-                </div>
+                <ProductImageCapture handleFile={handleFile} handleSubmit={handleSubmit}/>
             </div>
         </main>
     )

@@ -6,11 +6,8 @@ export const getAllProducts = () => {
     return api.get(url);
 }
 
-export const postProduct = (productJson:JSON) => {
+export const postProduct = (form:FormData) => {
     const url = "/products";
-    return api.post(url, productJson, {
-        headers: {
-            'Content-Type': 'multipart/form-data'
-        }
-    });
+    
+    return api.post(url, form);
 }
