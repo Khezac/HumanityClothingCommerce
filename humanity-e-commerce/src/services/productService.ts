@@ -11,3 +11,9 @@ export const postProduct = (form:FormData) => {
     
     return api.post(url, form);
 }
+
+export const deleteProductById = (id:number) => {
+    const url = "/products/" + id;
+
+    return api.delete(url);
+}

@@ -4,10 +4,11 @@ import { ProductType } from "../../pages/AdminProductList"
 import { useEffect, useRef, useState } from 'react'
 
 type AdminCardProps = {
-    product: ProductType
+    product: ProductType,
+    deleteProduct: (value:number) => void
 }
 
-export const AdminProductCard = ({ product }: AdminCardProps) => {
+export const AdminProductCard = ({ product, deleteProduct }: AdminCardProps) => {
 
     const [visible, setVisible] = useState<boolean>(false);
     const [willDelete, setWillDelete] = useState<boolean>(false);
@@ -35,6 +36,14 @@ export const AdminProductCard = ({ product }: AdminCardProps) => {
             document.removeEventListener('mousedown', handleClickOutside);
         };
     }, [])
+
+    const handleDelete = () => {
+        deleteProduct(product.product_id)
+        setTimeout(() => {
+            setVisible(false);
+            setWillDelete(false);
+        }, 100);
+    }
 
     return (
         <tr className={styles.productInfoRow}>
@@ -84,7 +93,7 @@ export const AdminProductCard = ({ product }: AdminCardProps) => {
                             </li>
                             <li
                                 className={styles.clickableOption}
-                                onClick={() => console.log("Deleta o produto")}>
+                                onClick={handleDelete}>
                                 Sim
                             </li>
                             <li

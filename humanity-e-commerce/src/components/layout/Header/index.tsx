@@ -1,6 +1,7 @@
 import styles from './styles.module.css'
 import LogoDark from '../../../assets/Logos/LogoDark.png'
 import { CgProfile } from "react-icons/cg";
+import { Link } from 'react-router-dom';
 
 export const Header = () => {
     return (
@@ -8,11 +9,9 @@ export const Header = () => {
             <nav>
                 <ul className={styles.menuNav}>
                     <li>
-                        <a>
-                            <img src={LogoDark}/>
-                        </a>
+                        <Link to="/"><img src={LogoDark}/></Link>
                     </li>
-                    <li><a>Home</a></li>
+                    <li><Link to="/">Home</Link></li>
                     <li><a>Masculino</a></li>
                     <li><a>Feminino</a></li>
                     <li><a>Todas as peças</a></li>

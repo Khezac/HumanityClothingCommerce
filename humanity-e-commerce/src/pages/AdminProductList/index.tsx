@@ -3,8 +3,11 @@ import { FaSearch } from "react-icons/fa";
 import { CiCirclePlus } from "react-icons/ci";
 import { LiaArrowsAltVSolid } from "react-icons/lia";
 import { useEffect, useState } from 'react';
-import { getAllProducts } from '../../services/productService';
+import { deleteProductById, getAllProducts } from '../../services/productService';
 import { AdminProductCard } from '../../components/AdminProductCard';
+import { useNavigate } from 'react-router';
+import { ring2 } from 'ldrs'
+
 
 export type ProductType = {
     product_id: number,
@@ -17,11 +20,27 @@ export type ProductType = {
 
 export const AdminProductList = () => {
     const [productList, setProductList] = useState<ProductType[]>();
+    const [isLoading, setIsLoading] = useState<boolean>();
+    const navigate = useNavigate();
+
+    ring2.register()
 
     const getProductsData = async () => {
+        setIsLoading(true)
         try {
             const { data } = await getAllProducts();
             setProductList(data)
+        } catch (err) {
+            console.log(err)
+        }
+        setIsLoading(false)
+    }
+
+    const deleteProduct = async (id: number) => {
+        setProductList((prev) => prev?.filter((element) => element.product_id != id))
+        try {
+            const { data } = await deleteProductById(id);
+            console.log(data)
         } catch (err) {
             console.log(err)
         }
@@ -47,7 +66,7 @@ export const AdminProductList = () => {
                         <input className={styles.searchBarInput} type="text" placeholder="Nome do produto" />
                         <FaSearch className={styles.searchIcon} size={25} color='#56876D' />
                     </div>
-                    <button className={styles.addProductBtn}><CiCirclePlus size={30} color='#DCE4DC' />Adicionar Produto</button>
+                    <button className={styles.addProductBtn} onClick={() => { navigate("/create") }}><CiCirclePlus size={30} color='#DCE4DC' />Adicionar Produto</button>
                 </div>
             </section>
             <table className={styles.productTable}>
@@ -61,11 +80,24 @@ export const AdminProductList = () => {
                     </tr>
                 </thead>
                 <tbody>
-                    {productList && productList.map((product: ProductType) => {
+                    {productList && productList.length > 0 && !isLoading ? productList.map((product: ProductType) => {
                         return (
-                            <AdminProductCard key={product.product_id} product={product} />
+                            <AdminProductCard key={product.product_id} product={product} deleteProduct={deleteProduct} />
                         )
                     })
+                        : !productList && isLoading ?
+                            <div className={styles.loadingContainer}>
+                                <l-ring-2
+                                    size="40"
+                                    stroke="5"
+                                    stroke-length="0.25"
+                                    bg-opacity="0.1"
+                                    speed="0.8"
+                                    color="#56876D"
+                                ></l-ring-2>
+                            </div>
+                            :
+                            <p style={{ textAlign: 'center', fontSize: 32 + "px", marginTop: 3 + "rem" }}>Não há produtos registrados! </p>
                     }
                 </tbody>
             </table>

@@ -23,6 +23,11 @@
     color: var(--font-color);
 }
 
+.menuNav > li > a {
+    text-decoration: none;
+    color: inherit;
+}
+
 .menuNav > li:hover {
     scale: 1.05;
     color: var(--font-selected-color);
