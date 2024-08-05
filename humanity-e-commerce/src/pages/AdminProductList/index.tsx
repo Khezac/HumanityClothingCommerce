@@ -3,7 +3,7 @@ import { FaSearch } from "react-icons/fa";
 import { CiCirclePlus } from "react-icons/ci";
 import { LiaArrowsAltVSolid } from "react-icons/lia";
 import { useEffect, useState } from 'react';
-import { deleteProductById, getAllProducts } from '../../services/productService';
+import { getAllProducts } from '../../services/productService';
 import { AdminProductCard } from '../../components/AdminProductCard';
 import { useNavigate } from 'react-router';
 import { ring2 } from 'ldrs'
@@ -30,20 +30,11 @@ export const AdminProductList = () => {
         try {
             const { data } = await getAllProducts();
             setProductList(data)
-        } catch (err) {
-            console.log(err)
-        }
-        setIsLoading(false)
-    }
-
-    const deleteProduct = async (id: number) => {
-        setProductList((prev) => prev?.filter((element) => element.product_id != id))
-        try {
-            const { data } = await deleteProductById(id);
             console.log(data)
         } catch (err) {
             console.log(err)
         }
+        setIsLoading(false)
     }
 
     useEffect(() => {
@@ -59,7 +50,13 @@ export const AdminProductList = () => {
             <section className={styles.topSection}>
                 <div className={styles.sectionTitle}>
                     <h1>Produtos</h1>
-                    <p>{productList?.length} Itens cadastrados</p>
+                    <p>
+                        {productList?.length && productList?.length > 0
+                            ?
+                            <span>{productList?.length} Itens cadastrados</span>
+                            :
+                            "0 Itens cadastrados"}
+                    </p>
                 </div>
                 <div className={styles.searchBarContainer}>
                     <div className={styles.searchBar}>
@@ -82,7 +79,11 @@ export const AdminProductList = () => {
                 <tbody>
                     {productList && productList.length > 0 && !isLoading ? productList.map((product: ProductType) => {
                         return (
-                            <AdminProductCard key={product.product_id} product={product} deleteProduct={deleteProduct} />
+                            <AdminProductCard
+                                key={product.product_id}
+                                product={product}
+                                setProductList={setProductList}
+                            />
                         )
                     })
                         : !productList && isLoading ?

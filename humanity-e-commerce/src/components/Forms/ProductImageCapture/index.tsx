@@ -7,7 +7,6 @@ import { FaArrowCircleRight } from "react-icons/fa";
 import { FaTrash } from "react-icons/fa";
 import { ring2 } from 'ldrs'
 import { MdOutlineCancel } from "react-icons/md";
-import { useNavigate } from 'react-router';
 
 type ImageCaptureProps = {
     handleFile: (value: FileList) => void,
@@ -15,7 +14,9 @@ type ImageCaptureProps = {
     images: File[],
     setValue: (value: File[] | ((prev: File[]) => File[])) => void
     isLoading: boolean,
-    handleCancel: () => void
+    handleCancel: () => void,
+    imageError: boolean,
+    isAtLimit: boolean
 }
 
 export const ProductImageCapture = (props: ImageCaptureProps) => {
@@ -61,11 +62,17 @@ export const ProductImageCapture = (props: ImageCaptureProps) => {
                     <h1>{props.images.length != 0 ? imagemId + 1 : 0}/{props.images.length}</h1>
                     <button className={styles.deleteImgBtn} onClick={handleDelete}><FaTrash size={25} color='#04724D' /></button>
                 </menu>
-                <div className={styles.imagePreviewContainer}>
+                <div className={props.imageError ? styles.imagePreviewContainerError : styles.imagePreviewContainer}>
                     <button className={styles.switchPreviewBtnLeft} id='Esquerda' onClick={handleEsquerda}><FaArrowCircleLeft size={30} color='#04724D' /></button>
                     <img src={props.images.length > 0 ? URL.createObjectURL(props.images[imagemId]) : ""} className={styles.imagePreview} />
                     <button className={styles.switchPreviewBtnRight} id='Direita' onClick={handleDireita}><FaArrowCircleRight size={30} color='#04724D' /></button>
+                    {props.imageError && <p className={styles.imgErrorMsg}>Necessário ao menos uma imagem</p>}
                 </div>
+                {props.isAtLimit ?
+                    <span style={{ color: "#FF8B8B", fontWeight: 600 }}>Limite atingido!</span>
+                    :
+                    <span style={{ color: "#04724D", fontWeight: 600 }}>3 max</span>
+                }
             </div>
             <div className={styles.sendBtnContainer}>
                 {props.isLoading ?

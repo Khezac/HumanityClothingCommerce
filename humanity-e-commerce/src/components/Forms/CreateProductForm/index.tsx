@@ -3,55 +3,110 @@ import { ProductInput } from '../ProductInput'
 import { ProductSelect } from '../ProductSelect'
 import { ProductTextArea } from '../ProductTextArea'
 import styles from './styles.module.css'
-
-export type Product = {
-    product_id: number,
-    name: string,
-    description: string,
-    size: string,
-    gender: string,
-    unit_price: number,
-    category: string
-}
+import { NewProductType } from '../../../pages/AdminCreateProduct'
 
 export type ProductProps = {
-    setValue: (value:object) => void;
+    setValue: (value: NewProductType) => void,
+    errors: { [key: string]: string },
+    setErrors: (value: { [key: string]: string }) => void
 }
 
-export const CreateProductForm = (props:ProductProps) => {
-    const [name, setName] = useState<string>();
-    const [categoria, setCategoria] = useState<string>();
-    const [tamanho, setTamanho] = useState<string>();
-    const [preco, setPreco] = useState<string>();
-    const [genero, setGenero] = useState<string>();
-    const [descricao, setDescricao] = useState<string>();
+export const CreateProductForm = (props: ProductProps) => {
+    const [name, setName] = useState<string>("");
+    const [category, setCategory] = useState<string>("");
+    const [size, setSize] = useState<string>("");
+    const [unit_price, setPrice] = useState<string>("");
+    const [gender, setGender] = useState<string>("");
+    const [description, setDescription] = useState<string>("");
 
     const handleInfo = () => {
-        const newProduct = {
-            name: name,
-            description: descricao,
-            size: tamanho,
-            gender: genero,
-            unit_price: preco,
-            category: categoria
+        const newProduct: NewProductType = {
+            name: name as string,
+            description: description as string,
+            size: size as string,
+            gender: gender as string,
+            unit_price: parseFloat(unit_price as string),
+            category: category as string
         }
         props.setValue(newProduct)
     }
 
     useEffect(() => {
         handleInfo();
-    },[name, categoria, tamanho, preco, genero, descricao])
+    }, [name, category, size, unit_price, gender, description, props.errors])
 
     return (
         <form className={styles.formContainer}>
-            <ProductInput name='productName' title='Nome do produto' placeholder='Nome do produto' value={name as string} setValue={setName} type='text' required={true}/>
-            <ProductInput name='categoria' title='Categoria' placeholder='Categoria do produto' value={categoria as string} setValue={setCategoria} type='text' required={true}/>
+            <ProductInput
+                name='name'
+                title='Nome do produto'
+                placeholder='Nome do produto'
+                value={name as string}
+                setValue={setName}
+                type='text'
+                errorMsg='Precisa ser preenchido.'
+                isError={props.errors?.name ? true : false}
+                setErrors={props.setErrors}
+                errors={props.errors}
+            />
+            <ProductInput
+                name='category'
+                title='Categoria'
+                placeholder='Categoria do produto'
+                value={category as string}
+                setValue={setCategory}
+                type='text'
+                errorMsg='Precisa ser preenchido.'
+                isError={props.errors?.category ? true : false}
+                setErrors={props.setErrors}
+                errors={props.errors}
+            />
             <div className={styles.smallerInputs} onClick={handleInfo}>
-                <ProductInput name='tamanho' title='Tamanho' placeholder='Tamanho do produto' value={tamanho as string} setValue={setTamanho} type='text' required={true}/>
-                <ProductInput name='preco' title='Preco' placeholder='Insira o valor do produto' value={preco as string} setValue={setPreco} type='number' required={true}/>
-                <ProductSelect name='genero' title='Genero' placeholder='Genero do produto' setValue={setGenero}/>
+                <ProductInput
+                    name='size'
+                    title='Tamanho'
+                    placeholder='Tamanho do produto'
+                    value={size as string}
+                    setValue={setSize}
+                    type='text'
+                    errorMsg='Precisa ser preenchido.'
+                    isError={props.errors?.size ? true : false}
+                    setErrors={props.setErrors}
+                    errors={props.errors}
+                />
+                <ProductInput
+                    name='unit_price'
+                    title='Preço'
+                    placeholder='Insira o valor do produto'
+                    value={unit_price as string}
+                    setValue={setPrice}
+                    type='number'
+                    errorMsg='Preencha com um valor.'
+                    isError={props.errors?.unit_price ? true : false}
+                    setErrors={props.setErrors}
+                    errors={props.errors}
+                />
+                <ProductSelect
+                    name='gender'
+                    title='Gênero'
+                    placeholder='Gênero do produto'
+                    setValue={setGender}
+                    errorMsg='Precisa ser preenchido.'
+                    isError={props.errors?.gender ? true : false}
+                    setErrors={props.setErrors}
+                    errors={props.errors}
+                />
             </div>
-            <ProductTextArea name='descricao' title='Descrição' placeholder='Descrição do produto' setValue={setDescricao}/>
+            <ProductTextArea
+                name='description'
+                title='Descrição'
+                placeholder='Descrição do produto'
+                setValue={setDescription}
+                errorMsg='Precisa ser preenchido.'
+                isError={props.errors?.description ? true : false}
+                setErrors={props.setErrors}
+                errors={props.errors}
+            />
         </form>
     )
 }

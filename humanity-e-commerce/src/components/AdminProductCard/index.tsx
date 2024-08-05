@@ -2,19 +2,32 @@ import styles from './styles.module.css'
 import { SlOptions } from "react-icons/sl"
 import { ProductType } from "../../pages/AdminProductList"
 import { useEffect, useRef, useState } from 'react'
+import { deleteProductById } from '../../services/productService'
 
 type AdminCardProps = {
     product: ProductType,
-    deleteProduct: (value:number) => void
+    setProductList: (value: ProductType[] | ((prev: ProductType[]) => ProductType[])) => void
 }
 
-export const AdminProductCard = ({ product, deleteProduct }: AdminCardProps) => {
+export const AdminProductCard = ({ product, setProductList }: AdminCardProps) => {
 
     const [visible, setVisible] = useState<boolean>(false);
     const [willDelete, setWillDelete] = useState<boolean>(false);
+    const [isDeleting, setIsDeleting] = useState<boolean>(false);
 
     const optionsBtnRef = useRef<HTMLTableCellElement>(null);
     const optionsBoxRef = useRef<HTMLUListElement>(null);
+
+    const deleteProduct = async (id: number) => {
+        try {
+            const { data } = await deleteProductById(id);
+            setProductList((prev) => prev?.filter((element) => element.product_id != id))
+            return data;
+        } catch (err) {
+            console.log(err)
+            return;
+        }
+    }
 
     useEffect(() => {
         const handleClickOutside = (event: MouseEvent) => {
@@ -37,12 +50,17 @@ export const AdminProductCard = ({ product, deleteProduct }: AdminCardProps) => 
         };
     }, [])
 
-    const handleDelete = () => {
-        deleteProduct(product.product_id)
-        setTimeout(() => {
-            setVisible(false);
-            setWillDelete(false);
-        }, 100);
+    const handleDelete = async () => {
+        setIsDeleting(true)
+        setVisible(false);
+        setWillDelete(false);
+        let response = null;
+
+        response = await deleteProduct(product.product_id)
+
+        if (response != null) {
+            setIsDeleting(false)
+        }
     }
 
     return (
@@ -61,11 +79,21 @@ export const AdminProductCard = ({ product, deleteProduct }: AdminCardProps) => 
                 R$ {parseFloat(product.unit_price).toFixed(2)}
             </td>
             <td ref={optionsBtnRef} style={{ width: 5 + "%", position: "relative" }}>
-                <SlOptions
-                    size={30}
-                    className={styles.options}
-                    onClick={() => { setVisible(prev => !prev) }}
-                />
+                {isDeleting ?
+                    <l-ring-2
+                        size="40"
+                        stroke="5"
+                        stroke-length="0.25"
+                        bg-opacity="0.1"
+                        speed="0.8"
+                        color="#56876D"
+                    ></l-ring-2>
+                    :
+                    <SlOptions
+                        size={30}
+                        className={styles.options}
+                        onClick={() => { setVisible(prev => !prev) }}
+                    />}
                 {visible && !willDelete ?
                     <ul ref={optionsBoxRef} className={styles.optionsBox}>
                         <li
