@@ -98,13 +98,7 @@ export const AdminCreateProduct = () => {
 
     return (
         <main className={styles.pageContainer}>
-            <h1>Novo Produto</h1>
             <div className={styles.infosContainer}>
-                <CreateProductForm
-                    setValue={setNewProduct}
-                    errors={errors as { [key: string]: string }}
-                    setErrors={setErrors}
-                />
                 <ProductImageCapture
                     handleFile={handleFile}
                     handleSubmit={handleSubmit}
@@ -114,6 +108,11 @@ export const AdminCreateProduct = () => {
                     handleCancel={handleCancel}
                     imageError={imageError}
                     isAtLimit={isAtLimit}
+                />
+                <CreateProductForm
+                    setValue={setNewProduct}
+                    errors={errors as { [key: string]: string }}
+                    setErrors={setErrors}
                 />
             </div>
         </main>

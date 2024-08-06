@@ -6,11 +6,9 @@ import { Link } from 'react-router-dom';
 export const Header = () => {
     return (
         <div className={styles.headerContainer}>
+            <Link to="/"><img src={LogoDark}/></Link>
             <nav>
                 <ul className={styles.menuNav}>
-                    <li>
-                        <Link to="/"><img src={LogoDark}/></Link>
-                    </li>
                     <li><Link to="/">Home</Link></li>
                     <li><a>Masculino</a></li>
                     <li><a>Feminino</a></li>

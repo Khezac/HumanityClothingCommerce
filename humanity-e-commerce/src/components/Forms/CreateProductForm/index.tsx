@@ -37,6 +37,7 @@ export const CreateProductForm = (props: ProductProps) => {
 
     return (
         <form className={styles.formContainer}>
+            <h1>Novo Produto</h1>
             <ProductInput
                 name='name'
                 title='Nome do produto'

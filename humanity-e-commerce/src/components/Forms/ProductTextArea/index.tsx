@@ -36,7 +36,7 @@ export const ProductTextArea = (props: InputProps) => {
             <label htmlFor={props.name}>{props.title}</label>
             <textarea
                 className={props.isError ? styles.productInputError : styles.productInput}
-                rows={10}
+                rows={7}
                 name={props.name}
                 id={props.name}
                 placeholder={props.placeholder}
