@@ -22,6 +22,7 @@ export const AdminProductList = () => {
     const [productList, setProductList] = useState<ProductType[]>();
     const [isLoading, setIsLoading] = useState<boolean>(false);
     const [searchResult, setSearchResult] = useState<ProductType[]>();
+    const [selectedOrder, setSelectedOrder] = useState<string>('');
     const navigate = useNavigate();
 
     ring2.register()
@@ -42,21 +43,39 @@ export const AdminProductList = () => {
         getProductsData();
     }, [])
 
-    const handleSubmit = (e :FormEvent<HTMLFormElement>) => {
+    const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
         e.preventDefault()
-    } 
-    
+    }
+
     const handleSearchChange = (e: ChangeEvent<HTMLInputElement>) => {
-        const filteredProducts = productList?.filter((product) => 
-            product.name.includes(e.target.value) || 
-            product.gender.includes(e.target.value.toUpperCase()) || 
+        const filteredProducts = productList?.filter((product) =>
+            product.name.includes(e.target.value) ||
+            product.gender.includes(e.target.value.toUpperCase()) ||
             product.category.includes(e.target.value)
         )
         setSearchResult(filteredProducts)
     }
 
     const handleOrganize = (e: React.MouseEvent<HTMLParagraphElement, MouseEvent>) => {
-        console.log("organiza: " + e.currentTarget.id)
+
+        const target = e.target as HTMLParagraphElement;
+        const id = target.id as keyof ProductType;
+
+        if (selectedOrder == id) {
+            setSearchResult(prev => prev?.slice().reverse());
+        } else {
+            const newResults = searchResult?.slice().sort((a, b) => {
+                if (a[id] < b[id]) {
+                    return -1;
+                }
+                if (a[id] > b[id]) {
+                    return 1;
+                }
+                return 0;
+            });
+            setSearchResult(newResults);
+            setSelectedOrder(id);
+        }
     }
 
     return (
@@ -89,10 +108,26 @@ export const AdminProductList = () => {
             <table className={styles.productTable}>
                 <thead>
                     <tr className={styles.tableHead}>
-                        <th className={styles.productNameColumnHead}><p id='Produto' onClick={(e) => { handleOrganize(e) }}>Produto<LiaArrowsAltVSolid /></p></th>
-                        <th style={{ width: 17.5 + "%" }}><p id='Categoria' onClick={(e) => { handleOrganize(e) }}>Categoria<LiaArrowsAltVSolid /></p></th>
-                        <th style={{ width: 17.5 + "%" }}><p id='Genero' onClick={(e) => { handleOrganize(e) }}>Gênero<LiaArrowsAltVSolid /></p></th>
-                        <th style={{ width: 17.5 + "%" }}><p id='Preco' onClick={(e) => { handleOrganize(e) }}>Preço<LiaArrowsAltVSolid /></p></th>
+                        <th className={selectedOrder == 'name' ? styles.productNameColumnHeadSelected : styles.productNameColumnHead}>
+                            <p id='name' onClick={(e) => { handleOrganize(e) }}>
+                                Produto<LiaArrowsAltVSolid />
+                            </p>
+                        </th>
+                        <th className={selectedOrder == 'category' ? styles.orderTableHeadSelected : styles.orderTableHead}>
+                            <p id='category' onClick={(e) => { handleOrganize(e) }}>
+                                Categoria<LiaArrowsAltVSolid />
+                            </p>
+                        </th>
+                        <th className={selectedOrder == 'gender' ? styles.orderTableHeadSelected : styles.orderTableHead}>
+                            <p id='gender' onClick={(e) => { handleOrganize(e) }}>
+                                Gênero<LiaArrowsAltVSolid />
+                            </p>
+                        </th>
+                        <th className={selectedOrder == 'unit_price' ? styles.orderTableHeadSelected : styles.orderTableHead}>
+                            <p id='unit_price' onClick={(e) => { handleOrganize(e) }}>
+                                Preço<LiaArrowsAltVSolid />
+                            </p>
+                        </th>
                         <th style={{ width: 5 + "%" }}></th>
                     </tr>
                 </thead>
@@ -102,7 +137,7 @@ export const AdminProductList = () => {
                             <AdminProductCard
                                 key={product.product_id}
                                 product={product}
-                                setProductList={setProductList}
+                                setProductList={setSearchResult}
                             />
                         )
                     })

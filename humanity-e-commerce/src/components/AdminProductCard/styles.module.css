@@ -1,5 +1,5 @@
 .productInfoRow {
-    height: 9rem;
+    height: 7rem;
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -18,8 +18,8 @@
 .productImg {
     background-color: #8DB38B;
     border-radius: 8px;
-    width: 7rem;
-    height: 7rem;
+    width: 5rem;
+    height: 5rem;
     object-fit: cover;
     border: 2px solid #DCE4DC;
 }
