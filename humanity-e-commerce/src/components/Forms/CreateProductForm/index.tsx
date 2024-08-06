@@ -77,8 +77,8 @@ export const CreateProductForm = (props: ProductProps) => {
                 />
                 <ProductInput
                     name='unit_price'
-                    title='Preço'
-                    placeholder='Insira o valor do produto'
+                    title='Preço (R$)'
+                    placeholder='Insira o valor do produto. Ex: 30.00'
                     value={unit_price as string}
                     setValue={setPrice}
                     type='number'

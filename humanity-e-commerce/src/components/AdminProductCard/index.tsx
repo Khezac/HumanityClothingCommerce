@@ -1,12 +1,12 @@
 import styles from './styles.module.css'
 import { SlOptions } from "react-icons/sl"
 import { ProductType } from "../../pages/AdminProductList"
-import { useEffect, useRef, useState } from 'react'
+import { Dispatch, SetStateAction, useEffect, useRef, useState } from 'react'
 import { deleteProductById } from '../../services/productService'
 
 type AdminCardProps = {
     product: ProductType,
-    setProductList: (value: ProductType[] | ((prev: ProductType[]) => ProductType[])) => void
+    setProductList: Dispatch<SetStateAction<ProductType[] | undefined>>
 }
 
 export const AdminProductCard = ({ product, setProductList }: AdminCardProps) => {
@@ -113,7 +113,7 @@ export const AdminProductCard = ({ product, setProductList }: AdminCardProps) =>
                             Excluir
                         </li>
                     </ul>
-                    : visible && willDelete ?
+                    : visible && willDelete &&
                         <ul ref={optionsBoxRef} className={styles.optionsBox}>
                             <li className={styles.deleteBoxTitle}
                                 onClick={() => console.log("navega para pagina do produto")}>
@@ -134,8 +134,6 @@ export const AdminProductCard = ({ product, setProductList }: AdminCardProps) =>
                                 Não
                             </li>
                         </ul>
-                        :
-                        <p></p>
                 }
             </td>
         </tr>

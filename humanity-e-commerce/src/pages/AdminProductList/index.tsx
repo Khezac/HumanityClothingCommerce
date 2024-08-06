@@ -2,7 +2,7 @@ import styles from './styles.module.css'
 import { FaSearch } from "react-icons/fa";
 import { CiCirclePlus } from "react-icons/ci";
 import { LiaArrowsAltVSolid } from "react-icons/lia";
-import { useEffect, useState } from 'react';
+import { ChangeEvent, FormEvent, useEffect, useState } from 'react';
 import { getAllProducts } from '../../services/productService';
 import { AdminProductCard } from '../../components/AdminProductCard';
 import { useNavigate } from 'react-router';
@@ -20,7 +20,8 @@ export type ProductType = {
 
 export const AdminProductList = () => {
     const [productList, setProductList] = useState<ProductType[]>();
-    const [isLoading, setIsLoading] = useState<boolean>();
+    const [isLoading, setIsLoading] = useState<boolean>(false);
+    const [searchResult, setSearchResult] = useState<ProductType[]>();
     const navigate = useNavigate();
 
     ring2.register()
@@ -30,7 +31,7 @@ export const AdminProductList = () => {
         try {
             const { data } = await getAllProducts();
             setProductList(data)
-            console.log(data)
+            setSearchResult(data)
         } catch (err) {
             console.log(err)
         }
@@ -40,6 +41,19 @@ export const AdminProductList = () => {
     useEffect(() => {
         getProductsData();
     }, [])
+
+    const handleSubmit = (e :FormEvent<HTMLFormElement>) => {
+        e.preventDefault()
+    } 
+    
+    const handleSearchChange = (e: ChangeEvent<HTMLInputElement>) => {
+        const filteredProducts = productList?.filter((product) => 
+            product.name.includes(e.target.value) || 
+            product.gender.includes(e.target.value.toUpperCase()) || 
+            product.category.includes(e.target.value)
+        )
+        setSearchResult(filteredProducts)
+    }
 
     const handleOrganize = (e: React.MouseEvent<HTMLParagraphElement, MouseEvent>) => {
         console.log("organiza: " + e.currentTarget.id)
@@ -59,10 +73,16 @@ export const AdminProductList = () => {
                     </p>
                 </div>
                 <div className={styles.searchBarContainer}>
-                    <div className={styles.searchBar}>
-                        <input className={styles.searchBarInput} type="text" placeholder="Nome do produto" />
+                    <form className={styles.searchBar} onSubmit={handleSubmit}>
+                        <input
+                            className={styles.searchBarInput}
+                            type="text"
+                            placeholder="Nome do produto"
+                            onChange={(e) => handleSearchChange(e)}
+                        />
                         <FaSearch className={styles.searchIcon} size={25} color='#56876D' />
-                    </div>
+                    </form>
+
                     <button className={styles.addProductBtn} onClick={() => { navigate("/create") }}><CiCirclePlus size={30} color='#DCE4DC' />Adicionar Produto</button>
                 </div>
             </section>
@@ -77,7 +97,7 @@ export const AdminProductList = () => {
                     </tr>
                 </thead>
                 <tbody>
-                    {productList && productList.length > 0 && !isLoading ? productList.map((product: ProductType) => {
+                    {searchResult && searchResult.length > 0 && !isLoading ? searchResult.map((product: ProductType) => {
                         return (
                             <AdminProductCard
                                 key={product.product_id}
@@ -86,19 +106,27 @@ export const AdminProductList = () => {
                             />
                         )
                     })
-                        : !productList && isLoading ?
-                            <div className={styles.loadingContainer}>
-                                <l-ring-2
-                                    size="40"
-                                    stroke="5"
-                                    stroke-length="0.25"
-                                    bg-opacity="0.1"
-                                    speed="0.8"
-                                    color="#56876D"
-                                ></l-ring-2>
-                            </div>
+                        : !searchResult && isLoading ?
+                            <tr className={styles.conditionalTable}>
+                                <td className={styles.conditionalTable}>
+                                    <div className={styles.loadingContainer}>
+                                        <l-ring-2
+                                            size="40"
+                                            stroke="5"
+                                            stroke-length="0.25"
+                                            bg-opacity="0.1"
+                                            speed="0.8"
+                                            color="#56876D"
+                                        ></l-ring-2>
+                                    </div>
+                                </td>
+                            </tr>
                             :
-                            <p style={{ textAlign: 'center', fontSize: 32 + "px", marginTop: 3 + "rem" }}>Não há produtos registrados! </p>
+                            <tr className={styles.conditionalTable}>
+                                <td className={styles.conditionalTable}>
+                                    <p style={{ textAlign: 'center', fontSize: 32 + "px", marginTop: 3 + "rem" }}>Não há produtos registrados! </p>
+                                </td>
+                            </tr>
                     }
                 </tbody>
             </table>

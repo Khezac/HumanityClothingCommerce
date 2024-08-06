@@ -129,3 +129,9 @@
     align-items: flex-end;
     height: 5rem;
 }
+
+.conditionalTable {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+}
