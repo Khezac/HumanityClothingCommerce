@@ -2,12 +2,29 @@ import styles from './styles.module.css'
 import { CreateProductForm } from "../../components/Forms/CreateProductForm"
 import { useEffect, useState } from 'react';
 import { ProductImageCapture } from '../../components/Forms/ProductImageCapture';
-import { getProductById, postProduct } from '../../services/productService';
+import { getProductById, postProduct, putProduct } from '../../services/productService';
 import { useLocation, useNavigate, useParams } from 'react-router';
 import * as yup from "yup";
-import { ProductType } from '../AdminProductList';
+import { postImage } from '../../services/imageService';
+
+export type AllImagesProductType = {
+    product_id: number,
+    name: string,
+    gender: string,
+    size: string,
+    unit_price: string,
+    category: string,
+    description: string,
+    imageURL: Image[]
+}
+
+type Image = {
+    fileName: string,
+    url: string
+}
 
 export type NewProductType = {
+    product_id: number,
     name: string,
     description: string,
     size: string,
@@ -27,7 +44,7 @@ const formSchema = yup.object({
 
 export const AdminCreateProduct = () => {
     const [newProduct, setNewProduct] = useState<NewProductType>();
-    const [product, setProduct] = useState<ProductType>();
+    const [product, setProduct] = useState<AllImagesProductType>();
     const [prodImages, setProdImages] = useState<File[]>([]);
     const [isLoading, setIsLoading] = useState<boolean>(false);
     const [errors, setErrors] = useState<{ [key: string]: string }>();
@@ -52,6 +69,24 @@ export const AdminCreateProduct = () => {
         }
     }
 
+    const updateProductInfo = async(updatedProduct :NewProductType) => {
+        try {
+            const {data} = await putProduct(updatedProduct);
+            console.log(data)
+            navigate('/products')
+        } catch (err) {
+            console.log(err)
+        }
+    } 
+
+    const updateProductImages = async(form: FormData) => {
+        try {
+            await postImage(form);
+        } catch(err) {
+            console.log(err)
+        }
+    }
+
     const getProductData = async (id :string) => {
         try{
             const { data } = await getProductById(id);
@@ -61,19 +96,30 @@ export const AdminCreateProduct = () => {
         }
     }
 
-    const handleSubmit = async () => {
+    const handleSubmit = () => {
         const form = new FormData();
 
         formSchema.validate(newProduct, { abortEarly: false })
             .then(() => {
-                if (prodImages.length <= 0) {
+                if (prodImages.length <= 0 && !product) {
                     setImageError(true)
                     return;
                 } else {
                     form.append("productInfo", JSON.stringify(newProduct))
                     prodImages.forEach((image) => form.append("productImages", image))
+                    
+                    if(pageType === 'edit'){
+                        if(prodImages.length > 0) {
+                            const formPUT = new FormData();
+                            prodImages.forEach((image) => formPUT.append("files", image))
+                            formPUT.append("id", JSON.stringify(product))
 
-                    postNewProduct(form);
+                            updateProductImages(formPUT);
+                        }
+                        updateProductInfo(newProduct as NewProductType)
+                    } else {
+                        postNewProduct(form);
+                    }
                 }
             })
             .catch((err: yup.ValidationError) => {
@@ -85,7 +131,7 @@ export const AdminCreateProduct = () => {
                     validationErrors[error.path] = error.message
                     setErrors(validationErrors);
 
-                    if (prodImages.length <= 0) {
+                    if (prodImages.length <= 0 && !product) {
                         setImageError(true)
                         return;
                     }
@@ -134,11 +180,12 @@ export const AdminCreateProduct = () => {
                     handleCancel={handleCancel}
                     imageError={imageError}
                     isAtLimit={isAtLimit}
-                    product={product as ProductType}
+                    product={product as AllImagesProductType}
                     pageType={pageType}
+                    setIsAtLimit={setIsAtLimit}
                 />
                 <CreateProductForm
-                    product={product as ProductType}
+                    product={product as AllImagesProductType}
                     setValue={setNewProduct}
                     errors={errors as { [key: string]: string }}
                     setErrors={setErrors}

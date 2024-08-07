@@ -3,14 +3,13 @@ import { ProductInput } from '../ProductInput'
 import { ProductSelect } from '../ProductSelect'
 import { ProductTextArea } from '../ProductTextArea'
 import styles from './styles.module.css'
-import { NewProductType } from '../../../pages/AdminCreateProduct'
-import { ProductType } from '../../../pages/AdminProductList'
+import { AllImagesProductType, NewProductType } from '../../../pages/AdminCreateProduct'
 
 export type CreateProductProps = {
     setValue: (value: NewProductType) => void,
     errors: { [key: string]: string },
     setErrors: (value: { [key: string]: string }) => void,
-    product: ProductType
+    product: AllImagesProductType
     pageType: string
 }
 
@@ -24,6 +23,7 @@ export const CreateProductForm = (props: CreateProductProps) => {
 
     const handleInfo = () => {
         const newProduct: NewProductType = {
+            product_id: props.product?.product_id,
             name: name as string,
             description: description as string,
             size: size as string,

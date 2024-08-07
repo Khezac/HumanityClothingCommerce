@@ -42,12 +42,12 @@ export const ProductSelect = (props: InputProps) => {
                 name={props.name}
                 id={props.name}
                 onChange={(e) => handleChange(e)}
-                defaultValue={props.value}
+                value={props.value}
                 disabled={props.disabled}
             >
-                <option selected={props.value == 'MASCULINO'} value="MASCULINO">Masculino</option>
-                <option selected={props.value == 'FEMININO'} value="FEMININO">Feminino</option>
-                <option selected={props.value == 'UNISEX'} value="UNISEX">Unisex</option>
+                <option value="MASCULINO">Masculino</option>
+                <option value="FEMININO">Feminino</option>
+                <option value="UNISEX">Unisex</option>
             </select>
             {props.isError && <p className={styles.errorMsg}>{props.errorMsg}</p>}
         </div>
