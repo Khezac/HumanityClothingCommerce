@@ -12,7 +12,7 @@
     width: 22.5vw;
 }
 
-.addImageBtn {
+.addImageBtn, .addImageBtnDisabled {
     background-color: #8DB38B;
     width: 100%;
     border: none;
@@ -26,6 +26,10 @@
     cursor: pointer;
     transition-duration: 0.2s;
     position: relative;
+}
+
+.addImageBtnDisabled {
+    cursor: default;
 }
 
 .btnContainer>input {

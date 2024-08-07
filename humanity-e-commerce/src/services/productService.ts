@@ -6,6 +6,12 @@ export const getAllProducts = () => {
     return api.get(url);
 }
 
+export const getProductById = (id :string) => {
+    const url = "/products/" + id
+
+    return api.get(url);
+}
+
 export const postProduct = (form:FormData) => {
     const url = "/products";
     

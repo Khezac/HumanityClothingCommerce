@@ -5,11 +5,14 @@ type InputProps = {
     title: string,
     name: string,
     placeholder: string,
-    setValue: (value: string) => void
+    value: string,
+    setValue: (value: string) => void,
+    type: string,
     isError: boolean,
     errorMsg: string,
     setErrors: (value: { [key: string]: string }) => void,
     errors: { [key: string]: string },
+    disabled: boolean
 }
 
 export const ProductTextArea = (props: InputProps) => {
@@ -39,7 +42,9 @@ export const ProductTextArea = (props: InputProps) => {
                 rows={7}
                 name={props.name}
                 id={props.name}
+                value={props.value}
                 placeholder={props.placeholder}
+                disabled={props.disabled}
                 onChange={(e) => handleChange(e)}>
             </textarea>
             {props.isError &&

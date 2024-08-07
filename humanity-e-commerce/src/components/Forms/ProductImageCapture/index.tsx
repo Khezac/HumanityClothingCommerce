@@ -6,6 +6,7 @@ import { FaTrash } from "react-icons/fa";
 import { ring2 } from 'ldrs'
 import { MdOutlineCancel } from "react-icons/md";
 import { RiArrowDropLeftLine, RiArrowDropRightLine } from "react-icons/ri";
+import { ProductType } from '../../../pages/AdminProductList';
 
 type ImageCaptureProps = {
     handleFile: (value: FileList) => void,
@@ -15,7 +16,9 @@ type ImageCaptureProps = {
     isLoading: boolean,
     handleCancel: () => void,
     imageError: boolean,
-    isAtLimit: boolean
+    isAtLimit: boolean,
+    product: ProductType,
+    pageType: string
 }
 
 export const ProductImageCapture = (props: ImageCaptureProps) => {
@@ -35,15 +38,17 @@ export const ProductImageCapture = (props: ImageCaptureProps) => {
     }
 
     const handleEsquerda = () => {
-        if (imagemId > 0) {
+        if (imagemId > 0 && props.product.imageURL.length > 0) {
             setImagemId(prev => prev - 1)
-        } else if (imagemId == 0) {
+        } else if (imagemId == 0 && !props.product) {
             setImagemId(props.images.length - 1)
+        } else if (imagemId == 0 && props.product.imageURL.length > 0) {
+            setImagemId(props.product.imageURL.length - 1)
         }
     }
 
     const handleDireita = () => {
-        if (imagemId < props.images.length - 1) {
+        if (imagemId < props.images.length - 1 || imagemId < props.product.imageURL.length - 1) {
             setImagemId(prev => prev + 1)
         } else {
             setImagemId(0)
@@ -54,7 +59,9 @@ export const ProductImageCapture = (props: ImageCaptureProps) => {
         <div className={styles.addImagesContainer}>
             <div className={styles.imagePreviewWrapper}>
                 <menu >
-                    <h1>{props.images.length != 0 ? imagemId + 1 : 0}/{props.images.length}</h1>
+                    <h1>
+                        {props.product ? imagemId + 1 : props.images.length != 0 ? imagemId + 1 : 0}/{props.product ? props.product.imageURL.length : props.images.length}
+                    </h1>
                     <button className={styles.deleteImgBtn} onClick={handleDelete}><FaTrash size={25} color='#04724D' /></button>
                 </menu>
                 <div className={props.imageError ? styles.imagePreviewContainerError : styles.imagePreviewContainer}>
@@ -62,7 +69,7 @@ export const ProductImageCapture = (props: ImageCaptureProps) => {
                         <RiArrowDropLeftLine size={60} color='#04724D' />
                     </button>
 
-                    <img src={props.images.length > 0 ? URL.createObjectURL(props.images[imagemId]) : ""} className={styles.imagePreview} />
+                    <img src={props.product ? props.product.imageURL[imagemId] : props.images.length > 0 ? URL.createObjectURL(props.images[imagemId]) : ""} className={styles.imagePreview} />
 
                     <button className={styles.switchPreviewBtnRight} id='Direita' onClick={handleDireita}>
                         <RiArrowDropRightLine size={60} color='#04724D' />
@@ -78,10 +85,20 @@ export const ProductImageCapture = (props: ImageCaptureProps) => {
                     <span style={{ color: "#04724D", fontWeight: 600 }}>3 max</span>
                 }
             </div>
-            <div className={styles.btnContainer}>
-                <label htmlFor="uploadFile" className={styles.addImageBtn}><AiOutlinePlusCircle size={25} /> Adicionar Imagem</label>
-                <input id='uploadFile' type='file' onChange={(e) => props.handleFile(e.target.files as FileList)} />
+            {props.pageType !== "details" && <div className={styles.btnContainer}>
+                <label
+                    htmlFor="uploadFile"
+                    className={props.pageType === "details" ? styles.addImageBtnDisabled : styles.addImageBtn}
+                >
+                    <AiOutlinePlusCircle size={25} /> Adicionar Imagem
+                </label>
+                <input
+                    id='uploadFile'
+                    type='file'
+                    onChange={(e) => props.handleFile(e.target.files as FileList)}
+                />
             </div>
+            }
             {props.isLoading ?
                 <button className={styles.sendProductBtn} disabled onClick={props.handleSubmit}>
                     <l-ring-2
@@ -94,9 +111,9 @@ export const ProductImageCapture = (props: ImageCaptureProps) => {
                     ></l-ring-2>
                 </button>
                 :
-                <button className={styles.sendProductBtn} onClick={props.handleSubmit}><BiCheckCircle size={25} /> Criar Produto</button>
+                props.pageType !== "details" && <button className={styles.sendProductBtn} onClick={props.handleSubmit}><BiCheckCircle size={25} /> Concluir</button>
             }
-            <button className={styles.cancelProductBtn} onClick={props.handleCancel}><MdOutlineCancel size={25} /> Cancelar</button>
+            <button className={styles.cancelProductBtn} onClick={props.handleCancel}><MdOutlineCancel size={25} /> {props.pageType === "details" ? "Voltar" : "Cancelar"}</button>
         </div>
     )
 }

@@ -1,10 +1,11 @@
 import styles from './styles.module.css'
 import { CreateProductForm } from "../../components/Forms/CreateProductForm"
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { ProductImageCapture } from '../../components/Forms/ProductImageCapture';
-import { postProduct } from '../../services/productService';
-import { useNavigate } from 'react-router';
+import { getProductById, postProduct } from '../../services/productService';
+import { useLocation, useNavigate, useParams } from 'react-router';
 import * as yup from "yup";
+import { ProductType } from '../AdminProductList';
 
 export type NewProductType = {
     name: string,
@@ -26,12 +27,18 @@ const formSchema = yup.object({
 
 export const AdminCreateProduct = () => {
     const [newProduct, setNewProduct] = useState<NewProductType>();
+    const [product, setProduct] = useState<ProductType>();
     const [prodImages, setProdImages] = useState<File[]>([]);
     const [isLoading, setIsLoading] = useState<boolean>(false);
     const [errors, setErrors] = useState<{ [key: string]: string }>();
     const [imageError, setImageError] = useState<boolean>(false);
     const [isAtLimit, setIsAtLimit] = useState<boolean>(false);
+    const [pageType, setPageType] = useState<string>('');
     const navigate = useNavigate();
+
+    const location = useLocation();
+
+    const { id } = useParams()
 
     const postNewProduct = async (form: FormData) => {
         setIsLoading(true)
@@ -42,6 +49,15 @@ export const AdminCreateProduct = () => {
         } catch (err) {
             console.log(err);
             setIsLoading(false)
+        }
+    }
+
+    const getProductData = async (id :string) => {
+        try{
+            const { data } = await getProductById(id);
+            setProduct(data)
+        } catch(err) {
+            console.log(err);
         }
     }
 
@@ -77,6 +93,16 @@ export const AdminCreateProduct = () => {
             })
     }
 
+    useEffect(() => {
+        const firstSlashIndex = location.pathname.indexOf('/')
+        const secondSlashIndex = location.pathname.indexOf('/', firstSlashIndex + 1)
+        const page = location.pathname.slice(firstSlashIndex + 1, secondSlashIndex)
+        if(page === "edit" || page === "details") {
+            getProductData(id as string);
+            setPageType(page);
+        }
+    },[])
+
     const handleFile = (files: FileList) => {
         const filesArray = Array.from(files)
         if (prodImages.length < 3) {
@@ -108,11 +134,15 @@ export const AdminCreateProduct = () => {
                     handleCancel={handleCancel}
                     imageError={imageError}
                     isAtLimit={isAtLimit}
+                    product={product as ProductType}
+                    pageType={pageType}
                 />
                 <CreateProductForm
+                    product={product as ProductType}
                     setValue={setNewProduct}
                     errors={errors as { [key: string]: string }}
                     setErrors={setErrors}
+                    pageType={pageType}
                 />
             </div>
         </main>

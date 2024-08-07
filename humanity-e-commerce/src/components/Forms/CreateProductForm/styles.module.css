@@ -3,7 +3,7 @@
     min-height: 70vh;
     height: fit-content;
     border-radius: 8px;
-    padding: 2rem;
+    padding-left: 2rem;
     display: flex;
     flex-direction: column;
     gap: 1rem;

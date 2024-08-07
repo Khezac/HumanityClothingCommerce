@@ -4,14 +4,17 @@ import { ProductSelect } from '../ProductSelect'
 import { ProductTextArea } from '../ProductTextArea'
 import styles from './styles.module.css'
 import { NewProductType } from '../../../pages/AdminCreateProduct'
+import { ProductType } from '../../../pages/AdminProductList'
 
-export type ProductProps = {
+export type CreateProductProps = {
     setValue: (value: NewProductType) => void,
     errors: { [key: string]: string },
-    setErrors: (value: { [key: string]: string }) => void
+    setErrors: (value: { [key: string]: string }) => void,
+    product: ProductType
+    pageType: string
 }
 
-export const CreateProductForm = (props: ProductProps) => {
+export const CreateProductForm = (props: CreateProductProps) => {
     const [name, setName] = useState<string>("");
     const [category, setCategory] = useState<string>("");
     const [size, setSize] = useState<string>("");
@@ -35,9 +38,20 @@ export const CreateProductForm = (props: ProductProps) => {
         handleInfo();
     }, [name, category, size, unit_price, gender, description, props.errors])
 
+    useEffect(() => {
+        if(props.product) {
+            setName(props.product.name)
+            setCategory(props.product.category)
+            setSize(props.product.size)
+            setPrice(props.product.unit_price)
+            setGender(props.product.gender)
+            setDescription(props.product.description)
+        }
+    },[props.product])
+
     return (
         <form className={styles.formContainer}>
-            <h1>Novo Produto</h1>
+            <h1>{props.pageType === "edit" ? "Edição de Produto" : props.pageType === "details" && props.product ? props.product.name : "Novo Produto"}</h1>   
             <ProductInput
                 name='name'
                 title='Nome do produto'
@@ -49,6 +63,7 @@ export const CreateProductForm = (props: ProductProps) => {
                 isError={props.errors?.name ? true : false}
                 setErrors={props.setErrors}
                 errors={props.errors}
+                disabled={props.pageType === "details"}
             />
             <ProductInput
                 name='category'
@@ -61,6 +76,7 @@ export const CreateProductForm = (props: ProductProps) => {
                 isError={props.errors?.category ? true : false}
                 setErrors={props.setErrors}
                 errors={props.errors}
+                disabled={props.pageType === "details"}
             />
             <div className={styles.smallerInputs} onClick={handleInfo}>
                 <ProductInput
@@ -74,6 +90,7 @@ export const CreateProductForm = (props: ProductProps) => {
                     isError={props.errors?.size ? true : false}
                     setErrors={props.setErrors}
                     errors={props.errors}
+                    disabled={props.pageType === "details"}
                 />
                 <ProductInput
                     name='unit_price'
@@ -86,27 +103,34 @@ export const CreateProductForm = (props: ProductProps) => {
                     isError={props.errors?.unit_price ? true : false}
                     setErrors={props.setErrors}
                     errors={props.errors}
+                    disabled={props.pageType === "details"}
                 />
                 <ProductSelect
                     name='gender'
                     title='Gênero'
                     placeholder='Gênero do produto'
+                    value={gender}
                     setValue={setGender}
                     errorMsg='Precisa ser preenchido.'
                     isError={props.errors?.gender ? true : false}
                     setErrors={props.setErrors}
                     errors={props.errors}
+                    type='select'
+                    disabled={props.pageType === "details"}
                 />
             </div>
             <ProductTextArea
                 name='description'
                 title='Descrição'
                 placeholder='Descrição do produto'
+                value={description}
                 setValue={setDescription}
                 errorMsg='Precisa ser preenchido.'
                 isError={props.errors?.description ? true : false}
                 setErrors={props.setErrors}
                 errors={props.errors}
+                type='textarea'
+                disabled={props.pageType === "details"}
             />
         </form>
     )

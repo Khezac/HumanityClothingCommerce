@@ -12,6 +12,7 @@ type InputProps = {
     errorMsg: string,
     setErrors: (value: { [key: string]: string }) => void,
     errors: { [key: string]: string },
+    disabled: boolean
 }
 
 export const ProductInput = (props: InputProps) => {
@@ -42,6 +43,7 @@ export const ProductInput = (props: InputProps) => {
                 type={props.type}
                 placeholder={props.placeholder}
                 value={props.value}
+                disabled={props.disabled}
                 onChange={(e) => handleChange(e)}
             />
             {props.isError && <p className={styles.errorMsg}>{props.errorMsg}</p>}

@@ -3,6 +3,7 @@ import { SlOptions } from "react-icons/sl"
 import { ProductType } from "../../pages/AdminProductList"
 import { Dispatch, SetStateAction, useEffect, useRef, useState } from 'react'
 import { deleteProductById } from '../../services/productService'
+import { useNavigate } from 'react-router'
 
 type AdminCardProps = {
     product: ProductType,
@@ -17,6 +18,8 @@ export const AdminProductCard = ({ product, setProductList }: AdminCardProps) =>
 
     const optionsBtnRef = useRef<HTMLTableCellElement>(null);
     const optionsBoxRef = useRef<HTMLUListElement>(null);
+
+    const navigate = useNavigate();
 
     const deleteProduct = async (id: number) => {
         try {
@@ -98,12 +101,12 @@ export const AdminProductCard = ({ product, setProductList }: AdminCardProps) =>
                     <ul ref={optionsBoxRef} className={styles.optionsBox}>
                         <li
                             className={styles.clickableOption}
-                            onClick={() => console.log("navega para pagina do produto")}>
+                            onClick={() => navigate('/details/' + product.product_id)}>
                             Ver detalhes
                         </li>
                         <li
                             className={styles.clickableOption}
-                            onClick={() => console.log("navega para pagina do form do produto")}>
+                            onClick={() => navigate('/edit/' + product.product_id)}>
                             Editar
                         </li>
                         <li

@@ -13,9 +13,11 @@ export type ProductType = {
     product_id: number,
     name: string,
     gender: string,
+    size: string,
     unit_price: string,
     category: string,
-    imageURL: string
+    description: string,
+    imageURL: string[]
 }
 
 export const AdminProductList = () => {
