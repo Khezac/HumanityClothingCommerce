@@ -59,7 +59,6 @@ export const AdminProductList = () => {
     }
 
     const handleOrganize = (e: React.MouseEvent<HTMLParagraphElement, MouseEvent>) => {
-
         const target = e.target as HTMLParagraphElement;
         const id = target.id as keyof ProductType;
 
@@ -74,6 +73,21 @@ export const AdminProductList = () => {
                     return 1;
                 }
                 return 0;
+            });
+            setSearchResult(newResults);
+            setSelectedOrder(id);
+        }
+    }
+
+    const organizePrice = (e: React.MouseEvent<HTMLParagraphElement, MouseEvent>) => {
+        const target = e.target as HTMLParagraphElement;
+        const id = target.id as keyof ProductType;
+
+        if (selectedOrder == id) {
+            setSearchResult(prev => prev?.slice().reverse());
+        } else {
+            const newResults = searchResult?.slice().sort((a, b) => {
+                return parseFloat(a[id] as string) - parseFloat(b[id] as string);
             });
             setSearchResult(newResults);
             setSelectedOrder(id);
@@ -126,7 +140,7 @@ export const AdminProductList = () => {
                             </p>
                         </th>
                         <th className={selectedOrder == 'unit_price' ? styles.orderTableHeadSelected : styles.orderTableHead}>
-                            <p id='unit_price' onClick={(e) => { handleOrganize(e) }}>
+                            <p id='unit_price' onClick={(e) => { organizePrice(e) }}>
                                 Preço<LiaArrowsAltVSolid />
                             </p>
                         </th>

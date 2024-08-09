@@ -5,7 +5,7 @@ import { ProductImageCapture } from '../../components/Forms/ProductImageCapture'
 import { getProductById, postProduct, putProduct } from '../../services/productService';
 import { useLocation, useNavigate, useParams } from 'react-router';
 import * as yup from "yup";
-import { postImage } from '../../services/imageService';
+import { deleteImageList, postImage } from '../../services/imageService';
 
 export type AllImagesProductType = {
     product_id: number,
@@ -18,7 +18,7 @@ export type AllImagesProductType = {
     imageURL: Image[]
 }
 
-type Image = {
+export type Image = {
     fileName: string,
     url: string
 }
@@ -51,6 +51,7 @@ export const AdminCreateProduct = () => {
     const [imageError, setImageError] = useState<boolean>(false);
     const [isAtLimit, setIsAtLimit] = useState<boolean>(false);
     const [pageType, setPageType] = useState<string>('');
+    const [deleteFromS3, setDeleteFromS3] = useState<Image[]>([]);
     const navigate = useNavigate();
 
     const location = useLocation();
@@ -70,30 +71,45 @@ export const AdminCreateProduct = () => {
     }
 
     const updateProductInfo = async(updatedProduct :NewProductType) => {
+        setIsLoading(true)
         try {
-            const {data} = await putProduct(updatedProduct);
-            console.log(data)
-            navigate('/products')
+            await putProduct(updatedProduct);
+            navigate("/products")
         } catch (err) {
             console.log(err)
         }
+        setIsLoading(false)
     } 
 
     const updateProductImages = async(form: FormData) => {
+        setIsLoading(true)
         try {
             await postImage(form);
         } catch(err) {
             console.log(err)
         }
+        setIsLoading(false)
     }
 
     const getProductData = async (id :string) => {
+        setIsLoading(true)
         try{
             const { data } = await getProductById(id);
             setProduct(data)
         } catch(err) {
             console.log(err);
         }
+        setIsLoading(false)
+    }
+
+    const deleteProductImages = async (list: Image[]) => {
+        setIsLoading(true)
+        try{
+            await deleteImageList(list);
+        } catch(err) {
+            console.log(err);
+        }
+        setIsLoading(false)
     }
 
     const handleSubmit = () => {
@@ -114,7 +130,13 @@ export const AdminCreateProduct = () => {
                             prodImages.forEach((image) => formPUT.append("files", image))
                             formPUT.append("id", JSON.stringify(product))
 
+                            if(deleteFromS3.length > 0) {
+                                deleteProductImages(deleteFromS3);
+                            }
+
                             updateProductImages(formPUT);
+                        } else if(deleteFromS3.length > 0) {
+                            deleteProductImages(deleteFromS3);
                         }
                         updateProductInfo(newProduct as NewProductType)
                     } else {
@@ -139,14 +161,18 @@ export const AdminCreateProduct = () => {
             })
     }
 
-    useEffect(() => {
+    const identifyPage = () => {
         const firstSlashIndex = location.pathname.indexOf('/')
         const secondSlashIndex = location.pathname.indexOf('/', firstSlashIndex + 1)
         const page = location.pathname.slice(firstSlashIndex + 1, secondSlashIndex)
         if(page === "edit" || page === "details") {
             getProductData(id as string);
-            setPageType(page);
         }
+        setPageType(page);
+    }
+
+    useEffect(() => {
+        identifyPage()
     },[])
 
     const handleFile = (files: FileList) => {
@@ -183,6 +209,7 @@ export const AdminCreateProduct = () => {
                     product={product as AllImagesProductType}
                     pageType={pageType}
                     setIsAtLimit={setIsAtLimit}
+                    setDeleteFromS3={setDeleteFromS3}
                 />
                 <CreateProductForm
                     product={product as AllImagesProductType}
