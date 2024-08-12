@@ -1,0 +1,26 @@
+.bannerContainer {
+    background-color: lime;
+    background-image: url("../../assets/Banners/Banner1.png");
+    height: 75vh;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+    border-radius: 4px;
+    display: flex;
+    justify-content: space-between;
+    flex-direction: column;
+}
+
+.greenBar {
+    background-color: #04724D;
+    height: 1rem;
+    border-radius: 4px 4px 0 0;
+}
+
+.bannerText {
+    font-weight: 600;
+    color: var(--main-white-backgroud);
+    font-size: 60px;
+    margin-bottom: 30px;
+    margin-left: 40px;
+}

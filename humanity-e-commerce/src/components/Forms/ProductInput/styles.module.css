@@ -1,0 +1,48 @@
+.inputContainer {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    position: relative;
+    margin-bottom: 0.5rem;
+}
+
+.productInput {
+    display: flex;
+    background-color: transparent;
+    outline: none;
+    border: 2px solid #04724D;
+    border-radius: 8px;
+    padding: 1rem;
+    width: 100%;
+}
+
+.productInput::placeholder {
+    color: #04724D;
+}
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+input[type=number]{
+    -moz-appearance: textfield;
+}
+
+.productInputError {
+    display: flex;
+    background-color: transparent;
+    outline: none;
+    border: 2px solid #fd5656;
+    border-radius: 8px;
+    padding: 1rem;
+    width: 100%;
+}
+
+.errorMsg {
+    color: #fd5656;
+    position: absolute;
+    bottom: 0;
+    transform: translate(0,80%);
+}

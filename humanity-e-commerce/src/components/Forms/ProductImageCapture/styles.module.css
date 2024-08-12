@@ -1,0 +1,170 @@
+.addImagesContainer {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 1rem;
+    min-height: 90vh;
+    background-color: #DCE4DC;
+    padding: 5.5rem 2.5rem 5rem 5rem;
+}
+
+.btnContainer {
+    width: 22.5vw;
+}
+
+.addImageBtn, .addImageBtnDisabled {
+    background-color: #8DB38B;
+    width: 100%;
+    border: none;
+    color: #DCE4DC;
+    height: 3rem;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    cursor: pointer;
+    transition-duration: 0.2s;
+    position: relative;
+}
+
+.addImageBtnDisabled {
+    cursor: default;
+}
+
+.btnContainer>input {
+    display: none;
+}
+
+.addImageBtn:hover {
+    background-color: #04724D;
+}
+
+.imageDisplayContainer {
+    background-color: #DCE4DC;
+    width: 100%;
+    height: 65%;
+    border-radius: 8px;
+}
+
+.sendProductBtn, .cancelProductBtn {
+    background-color: #04724D;
+    width: 100%;
+    border: none;
+    color: #DCE4DC;
+    height: 3rem;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    cursor: pointer;
+    transition-duration: 0.2s;
+    height: 3rem;
+    width: 22.5vw;
+}
+
+.cancelProductBtn {
+    background-color: #fd5656;
+}
+
+.cancelProductBtn:hover {
+    background-color: #FF8B8B;
+}
+
+.sendProductBtn:hover {
+    background-color: #8DB38B;
+}
+
+.imagePreviewWrapper {
+    background-color:#DCE4DC;
+    border-radius: 8px;
+    width: 22.5vw;
+    height: 50vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.imagePreviewWrapper > menu{
+    display: flex;
+    justify-content: space-between;
+}
+
+.imagePreviewWrapper > menu > h1{
+    color: #04724D;
+    font-size: 24px;
+    font-weight: 600;
+}
+
+.deleteImgBtn {
+    background-color: transparent;
+    border: none;
+    outline: none;
+    border-radius: 50px;
+    width: 2rem;
+    height: 2rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition-duration: 0.2s;
+    cursor: pointer;
+}
+
+.deleteImgBtn:hover {
+    background-color: #FF8B8B;
+}
+
+.imagePreviewContainer {
+    border-radius: 8px;
+    overflow: hidden;
+    display: flex;
+    position: relative;
+    width: 100%;
+    height: 100%;
+}
+
+.imagePreviewContainerError {
+    border-radius: 8px;
+    border: 2px solid #fd5656;
+    overflow: hidden;
+    display: flex;
+    position: relative;
+    width: 100%;
+    height: 100%;
+}
+
+.imagePreview {
+    width: 100%;
+    height: 100%;
+    border-radius: 8px;
+    object-fit: cover;
+}
+
+.switchPreviewBtnLeft {
+    position: absolute;
+    left: -0.5rem;
+    height: 100%;
+    border: none;
+    background-color: transparent;
+    cursor: pointer;
+}
+
+.switchPreviewBtnRight {
+    position: absolute;
+    right: -0.5rem;
+    height: 100%;
+    border: none;
+    background-color: transparent;
+    cursor: pointer;
+}
+
+.imgErrorMsg {
+    color: #fd5656;
+    width: 75%;
+    text-align: center;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+}
