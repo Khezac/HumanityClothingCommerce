@@ -100,7 +100,7 @@ export const AdminProductList = () => {
                 <div className={styles.sectionTitle}>
                     <h1>Produtos</h1>
                     <p>
-                        {productList?.length && productList?.length > 0
+                        {productList
                             ?
                             <span>{productList?.length} Itens cadastrados</span>
                             :
@@ -153,7 +153,9 @@ export const AdminProductList = () => {
                             <AdminProductCard
                                 key={product.product_id}
                                 product={product}
-                                setProductList={setSearchResult}
+                                setSearchResult={setSearchResult}
+                                setProductList={setProductList}
+                                productList={productList as ProductType[]}
                             />
                         )
                     })

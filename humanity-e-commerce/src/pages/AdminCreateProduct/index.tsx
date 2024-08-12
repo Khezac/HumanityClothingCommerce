@@ -210,6 +210,7 @@ export const AdminCreateProduct = () => {
                     pageType={pageType}
                     setIsAtLimit={setIsAtLimit}
                     setDeleteFromS3={setDeleteFromS3}
+                    setImageError={setImageError}
                 />
                 <CreateProductForm
                     product={product as AllImagesProductType}

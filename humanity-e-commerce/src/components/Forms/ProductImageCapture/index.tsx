@@ -16,6 +16,7 @@ type ImageCaptureProps = {
     isLoading: boolean,
     handleCancel: () => void,
     imageError: boolean,
+    setImageError: (value:boolean) => void,
     isAtLimit: boolean,
     product: AllImagesProductType,
     pageType: string,
@@ -32,14 +33,16 @@ export const ProductImageCapture = (props: ImageCaptureProps) => {
     const handleDelete = () => {
         if (imagesURLs.length > 1) {
             const urlToBeDeleted = imagesURLs[imagemId];
-            const imagesFromProduct = props.product.imageURL;
+            const imagesFromProduct = props.product?.imageURL;
 
             // Manda a imagem que estiver sendo exibida para uma lista que será deletada do Banco
-            imagesFromProduct.map((image) => {
-                if (image.url == urlToBeDeleted) {
-                    props.setDeleteFromS3((prev) => [...prev, image])
-                }
-            })
+            if(imagesFromProduct) {
+                    imagesFromProduct.map((image) => {
+                    if (image.url == urlToBeDeleted) {
+                        props.setDeleteFromS3((prev) => [...prev, image])
+                    }
+                })
+            }
 
             //  Deleta a URL da imagem que estava sendo exibida da lista de URLs
             setImagesURLs((prev: string[]) => {
@@ -50,7 +53,7 @@ export const ProductImageCapture = (props: ImageCaptureProps) => {
 
             setImagemId(0);
         } else {
-            console.log("É preciso ter ao menos uma imagem relacionada ao produto")
+            props.setImageError(true);
         }
     }
 

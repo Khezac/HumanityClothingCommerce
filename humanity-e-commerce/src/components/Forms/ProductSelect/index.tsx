@@ -1,4 +1,4 @@
-import { ChangeEvent } from 'react'
+import { ChangeEvent, useEffect } from 'react'
 import styles from './styles.module.css'
 
 type InputProps = {
@@ -33,6 +33,10 @@ export const ProductSelect = (props: InputProps) => {
         
         props.setErrors(newErrors);
     };
+
+    useEffect(() => {
+        props.setValue("MASCULINO")
+    },[])
 
     return (
         <div className={styles.inputContainer}>

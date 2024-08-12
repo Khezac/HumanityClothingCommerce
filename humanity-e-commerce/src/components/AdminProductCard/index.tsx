@@ -7,10 +7,12 @@ import { useNavigate } from 'react-router'
 
 type AdminCardProps = {
     product: ProductType,
-    setProductList: Dispatch<SetStateAction<ProductType[] | undefined>>
+    setProductList: Dispatch<SetStateAction<ProductType[] | undefined>>,
+    setSearchResult: Dispatch<SetStateAction<ProductType[] | undefined>>,
+    productList: ProductType[],
 }
 
-export const AdminProductCard = ({ product, setProductList }: AdminCardProps) => {
+export const AdminProductCard = ({ product, setProductList, setSearchResult }: AdminCardProps) => {
 
     const [visible, setVisible] = useState<boolean>(false);
     const [willDelete, setWillDelete] = useState<boolean>(false);
@@ -25,6 +27,7 @@ export const AdminProductCard = ({ product, setProductList }: AdminCardProps) =>
         try {
             const { data } = await deleteProductById(id);
             setProductList((prev) => prev?.filter((element) => element.product_id != id))
+            setSearchResult((prev) => prev?.filter((element) => element.product_id != id))
             return data;
         } catch (err) {
             console.log(err)

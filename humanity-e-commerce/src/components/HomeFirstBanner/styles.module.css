@@ -1,7 +1,7 @@
 .bannerContainer {
     background-color: lime;
     background-image: url("../../assets/Banners/Banner1.png");
-    height: 560px;
+    height: 75vh;
     background-repeat: no-repeat;
     background-position: center;
     background-size: cover;

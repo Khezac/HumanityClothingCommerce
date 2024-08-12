@@ -43,7 +43,7 @@ export const CreateProductForm = (props: CreateProductProps) => {
             setName(props.product.name)
             setCategory(props.product.category)
             setSize(props.product.size)
-            setPrice(props.product.unit_price)
+            setPrice(parseFloat(props.product.unit_price).toFixed(2))
             setGender(props.product.gender)
             setDescription(props.product.description)
         }
