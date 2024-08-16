@@ -27,6 +27,7 @@ type ImageCaptureProps = {
 export const ProductImageCapture = (props: ImageCaptureProps) => {
     const [imagemId, setImagemId] = useState(0);
     const [imagesURLs, setImagesURLs] = useState<string[]>([]);
+    const [imagesInBrowser, setImagesInBrowser] = useState<File[]>([]);
 
     ring2.register()
 
@@ -48,6 +49,12 @@ export const ProductImageCapture = (props: ImageCaptureProps) => {
             setImagesURLs((prev: string[]) => {
                 return prev.filter((element: string) => {
                     return element != imagesURLs[imagemId]
+                })
+            })
+
+            props.setValue((prev: File[]) => {
+                return prev.filter((element: File) => {
+                    return element.name != imagesInBrowser[imagemId].name
                 })
             })
 
@@ -90,6 +97,12 @@ export const ProductImageCapture = (props: ImageCaptureProps) => {
 
     const createUrls = (files: FileList) => {
         const filesArray = Array.from(files);
+        
+        filesArray.forEach((file) => {
+            setImagesInBrowser(
+                (prev) => [...prev, file]
+            )
+        })
 
         filesArray.forEach((file) => {
             const fileURL = URL.createObjectURL(file)

@@ -128,8 +128,8 @@ export const AdminCreateProduct = () => {
                     if(pageType === 'edit'){
                         if(prodImages.length > 0) {
                             const formPUT = new FormData();
-                            prodImages.forEach((image) => formPUT.append("files", image))
-                            formPUT.append("id", JSON.stringify(product))
+                            prodImages.forEach((image) => formPUT.append("productImages", image))
+                            formPUT.append("productInfo", JSON.stringify(newProduct))
 
                             if(deleteFromDB.length > 0) {
                                 deleteProductImages(deleteFromDB);
@@ -197,7 +197,7 @@ export const AdminCreateProduct = () => {
 
     return (
         <main className={styles.pageContainer}>
-            <div className={styles.infosContainer} onClick={() => console.log(deleteFromDB)}>
+            <div className={styles.infosContainer}>
                 <ProductImageCapture
                     handleFile={handleFile}
                     handleSubmit={handleSubmit}

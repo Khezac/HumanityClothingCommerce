@@ -1,7 +1,7 @@
 import { api } from "./api"
 
 export const postImage = (form:FormData) => {
-    const url = "/file/upload";
+    const url = "/image";
     
     return api.post(url, form);
 }
