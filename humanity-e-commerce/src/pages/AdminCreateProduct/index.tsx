@@ -6,6 +6,7 @@ import { getProductById, postProduct, putProduct } from '../../services/productS
 import { useLocation, useNavigate, useParams } from 'react-router';
 import * as yup from "yup";
 import { deleteImageList, postImage } from '../../services/imageService';
+import { ProductType } from '../../types';
 
 export type AllImagesProductType = {
     product_id: number,
@@ -44,14 +45,14 @@ const formSchema = yup.object({
 
 export const AdminCreateProduct = () => {
     const [newProduct, setNewProduct] = useState<NewProductType>();
-    const [product, setProduct] = useState<AllImagesProductType>();
+    const [product, setProduct] = useState<ProductType>();
     const [prodImages, setProdImages] = useState<File[]>([]);
     const [isLoading, setIsLoading] = useState<boolean>(false);
     const [errors, setErrors] = useState<{ [key: string]: string }>();
     const [imageError, setImageError] = useState<boolean>(false);
     const [isAtLimit, setIsAtLimit] = useState<boolean>(false);
     const [pageType, setPageType] = useState<string>('');
-    const [deleteFromS3, setDeleteFromS3] = useState<Image[]>([]);
+    const [deleteFromDB, setDeleteFromDB] = useState<number[]>([]);
     const navigate = useNavigate();
 
     const location = useLocation();
@@ -102,7 +103,7 @@ export const AdminCreateProduct = () => {
         setIsLoading(false)
     }
 
-    const deleteProductImages = async (list: Image[]) => {
+    const deleteProductImages = async (list: number[]) => {
         setIsLoading(true)
         try{
             await deleteImageList(list);
@@ -130,13 +131,13 @@ export const AdminCreateProduct = () => {
                             prodImages.forEach((image) => formPUT.append("files", image))
                             formPUT.append("id", JSON.stringify(product))
 
-                            if(deleteFromS3.length > 0) {
-                                deleteProductImages(deleteFromS3);
+                            if(deleteFromDB.length > 0) {
+                                deleteProductImages(deleteFromDB);
                             }
 
                             updateProductImages(formPUT);
-                        } else if(deleteFromS3.length > 0) {
-                            deleteProductImages(deleteFromS3);
+                        } else if(deleteFromDB.length > 0) {
+                            deleteProductImages(deleteFromDB);
                         }
                         updateProductInfo(newProduct as NewProductType)
                     } else {
@@ -196,7 +197,7 @@ export const AdminCreateProduct = () => {
 
     return (
         <main className={styles.pageContainer}>
-            <div className={styles.infosContainer}>
+            <div className={styles.infosContainer} onClick={() => console.log(deleteFromDB)}>
                 <ProductImageCapture
                     handleFile={handleFile}
                     handleSubmit={handleSubmit}
@@ -206,14 +207,14 @@ export const AdminCreateProduct = () => {
                     handleCancel={handleCancel}
                     imageError={imageError}
                     isAtLimit={isAtLimit}
-                    product={product as AllImagesProductType}
+                    product={product as ProductType}
                     pageType={pageType}
                     setIsAtLimit={setIsAtLimit}
-                    setDeleteFromS3={setDeleteFromS3}
+                    setDeleteFromDB={setDeleteFromDB}
                     setImageError={setImageError}
                 />
                 <CreateProductForm
-                    product={product as AllImagesProductType}
+                    product={product as ProductType}
                     setValue={setNewProduct}
                     errors={errors as { [key: string]: string }}
                     setErrors={setErrors}

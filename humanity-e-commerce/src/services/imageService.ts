@@ -1,4 +1,3 @@
-import { Image } from "../pages/AdminCreateProduct";
 import { api } from "./api"
 
 export const postImage = (form:FormData) => {
@@ -7,8 +6,8 @@ export const postImage = (form:FormData) => {
     return api.post(url, form);
 }
 
-export const deleteImageList = (list: Image[]) => {
-    const url ="/file/delete"
+export const deleteImageList = (list: number[]) => {
+    const url ="/image"
 
     return api.delete(url, { data: list })
 }

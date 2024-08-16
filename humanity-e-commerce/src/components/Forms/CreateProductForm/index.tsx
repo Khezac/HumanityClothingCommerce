@@ -4,12 +4,13 @@ import { ProductSelect } from '../ProductSelect'
 import { ProductTextArea } from '../ProductTextArea'
 import styles from './styles.module.css'
 import { AllImagesProductType, NewProductType } from '../../../pages/AdminCreateProduct'
+import { ProductType } from '../../../types'
 
 export type CreateProductProps = {
     setValue: (value: NewProductType) => void,
     errors: { [key: string]: string },
     setErrors: (value: { [key: string]: string }) => void,
-    product: AllImagesProductType
+    product: ProductType
     pageType: string
 }
 

@@ -6,7 +6,7 @@ import { FaTrash } from "react-icons/fa";
 import { ring2 } from 'ldrs'
 import { MdOutlineCancel } from "react-icons/md";
 import { RiArrowDropLeftLine, RiArrowDropRightLine } from "react-icons/ri";
-import { AllImagesProductType, Image } from '../../../pages/AdminCreateProduct';
+import { ProductType } from '../../../types';
 
 type ImageCaptureProps = {
     handleFile: (value: FileList) => void,
@@ -18,10 +18,10 @@ type ImageCaptureProps = {
     imageError: boolean,
     setImageError: (value:boolean) => void,
     isAtLimit: boolean,
-    product: AllImagesProductType,
+    product: ProductType,
     pageType: string,
     setIsAtLimit: (value: boolean) => void,
-    setDeleteFromS3: (value: Image[] | ((prev: Image[]) => Image[])) => void
+    setDeleteFromDB: (value: number[] | ((prev: number[]) => number[])) => void
 }
 
 export const ProductImageCapture = (props: ImageCaptureProps) => {
@@ -33,13 +33,13 @@ export const ProductImageCapture = (props: ImageCaptureProps) => {
     const handleDelete = () => {
         if (imagesURLs.length > 1) {
             const urlToBeDeleted = imagesURLs[imagemId];
-            const imagesFromProduct = props.product?.imageURL;
+            const imagesFromProduct = props.product?.images;
 
             // Manda a imagem que estiver sendo exibida para uma lista que será deletada do Banco
             if(imagesFromProduct) {
-                    imagesFromProduct.map((image) => {
-                    if (image.url == urlToBeDeleted) {
-                        props.setDeleteFromS3((prev) => [...prev, image])
+                imagesFromProduct.map((image) => {
+                    if (`data:${image.type};base64,${image.bytes}` === urlToBeDeleted) {
+                        props.setDeleteFromDB((prev) => [...prev, image.image_id])
                     }
                 })
             }
@@ -103,8 +103,8 @@ export const ProductImageCapture = (props: ImageCaptureProps) => {
         if (props.product) {
             setImagesURLs([])
 
-            props.product.imageURL.forEach(element => {
-                setImagesURLs(prev => [...prev, element.url])
+            props.product.images.forEach(element => {
+                setImagesURLs(prev => [...prev, `data:${element.type};base64,${element.bytes}`])
             })
         }
     }, [props.product])

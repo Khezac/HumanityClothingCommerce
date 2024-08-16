@@ -7,18 +7,7 @@ import { getAllProducts } from '../../services/productService';
 import { AdminProductCard } from '../../components/AdminProductCard';
 import { useNavigate } from 'react-router';
 import { ring2 } from 'ldrs'
-
-
-export type ProductType = {
-    product_id: number,
-    name: string,
-    gender: string,
-    size: string,
-    unit_price: string,
-    category: string,
-    description: string,
-    imageURL: string[]
-}
+import { ProductType } from '../../types';
 
 export const AdminProductList = () => {
     const [productList, setProductList] = useState<ProductType[]>();
@@ -32,9 +21,9 @@ export const AdminProductList = () => {
     const getProductsData = async () => {
         setIsLoading(true)
         try {
-            const { data } = await getAllProducts();
-            setProductList(data)
-            setSearchResult(data)
+            const response = await getAllProducts();
+            setProductList(response.data)
+            setSearchResult(response.data)
         } catch (err) {
             console.log(err)
         }
