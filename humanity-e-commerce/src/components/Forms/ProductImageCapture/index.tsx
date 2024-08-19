@@ -16,7 +16,7 @@ type ImageCaptureProps = {
     isLoading: boolean,
     handleCancel: () => void,
     imageError: boolean,
-    setImageError: (value:boolean) => void,
+    setImageError: (value: boolean) => void,
     isAtLimit: boolean,
     product: ProductType,
     pageType: string,
@@ -37,7 +37,7 @@ export const ProductImageCapture = (props: ImageCaptureProps) => {
             const imagesFromProduct = props.product?.images;
 
             // Manda a imagem que estiver sendo exibida para uma lista que será deletada do Banco
-            if(imagesFromProduct) {
+            if (imagesFromProduct) {
                 imagesFromProduct.map((image) => {
                     if (`data:${image.type};base64,${image.bytes}` === urlToBeDeleted) {
                         props.setDeleteFromDB((prev) => [...prev, image.image_id])
@@ -97,7 +97,7 @@ export const ProductImageCapture = (props: ImageCaptureProps) => {
 
     const createUrls = (files: FileList) => {
         const filesArray = Array.from(files);
-        
+
         filesArray.forEach((file) => {
             setImagesInBrowser(
                 (prev) => [...prev, file]
@@ -124,69 +124,84 @@ export const ProductImageCapture = (props: ImageCaptureProps) => {
 
     return (
         <div className={styles.addImagesContainer}>
-            <div className={styles.imagePreviewWrapper}>
-                <menu style={{marginBottom: 0.2 + "rem" }} >
-                    <h1>
-                        {props.product ? imagemId + 1 : imagesURLs.length != 0 ? imagemId + 1 : 0}/{imagesURLs.length}
-                    </h1>
-                    {props.pageType === 'edit' || props.pageType === 'creat' ?
-                        <button className={styles.deleteImgBtn} onClick={handleDelete}>
-                            <FaTrash size={25} color='#04724D' />
-                        </button>
-                        :
-                        <p></p>
-                    }
-                </menu>
-                <div className={props.imageError ? styles.imagePreviewContainerError : styles.imagePreviewContainer}>
-                    <button className={styles.switchPreviewBtnLeft} id='Esquerda' onClick={handleLeft}>
-                        <RiArrowDropLeftLine size={60} color='#04724D' />
-                    </button>
-
-                    <img src={imagesURLs[imagemId]} onClick={() => console.log(props.pageType)} className={styles.imagePreview} />
-
-                    <button className={styles.switchPreviewBtnRight} id='Direita' onClick={handleRight}>
-                        <RiArrowDropRightLine size={60} color='#04724D' />
-                    </button>
-
-                    {props.imageError &&
-                        <p className={styles.imgErrorMsg}>Necessário ao menos uma imagem</p>
-                    }
-                </div>
-                {props.isAtLimit ?
-                    <span style={{ color: "#FF8B8B", fontWeight: 600, marginTop: 0.2 + "rem" }}>Limite atingido!</span>
-                    :
-                    <span style={{ color: "#04724D", fontWeight: 600, marginTop: 0.2 + "rem" }}>3 max</span>
-                }
-            </div>
-            {props.pageType !== "details" && <div className={styles.btnContainer}>
-                <label
-                    htmlFor="uploadFile"
-                    className={props.pageType === "details" ? styles.addImageBtnDisabled : styles.addImageBtn}
-                >
-                    <AiOutlinePlusCircle size={25} /> Adicionar Imagem
-                </label>
-                <input
-                    id='uploadFile'
-                    type='file'
-                    onChange={(e) => { handleInsertImages(e) }}
-                />
-            </div>
-            }
             {props.isLoading ?
-                <button className={styles.sendProductBtn} disabled>
+                <div className={styles.loader}>
                     <l-ring-2
                         size="40"
                         stroke="5"
                         stroke-length="0.25"
                         bg-opacity="0.1"
                         speed="0.8"
-                        color="#DCE4DC"
+                        color="#56876D"
                     ></l-ring-2>
-                </button>
+                </div>
                 :
-                props.pageType !== "details" && <button className={styles.sendProductBtn} onClick={props.handleSubmit}><BiCheckCircle size={25} /> Concluir</button>
+                <>
+                    <div className={styles.imagePreviewWrapper}>
+                        <menu style={{ marginBottom: 0.2 + "rem" }} >
+                            <h1>
+                                {props.product ? imagemId + 1 : imagesURLs.length != 0 ? imagemId + 1 : 0}/{imagesURLs.length}
+                            </h1>
+                            {props.pageType === 'edit' || props.pageType === 'creat' ?
+                                <button className={styles.deleteImgBtn} onClick={handleDelete}>
+                                    <FaTrash size={25} color='#04724D' />
+                                </button>
+                                :
+                                <p></p>
+                            }
+                        </menu>
+                        <div className={props.imageError ? styles.imagePreviewContainerError : styles.imagePreviewContainer}>
+                            <button className={styles.switchPreviewBtnLeft} id='Esquerda' onClick={handleLeft}>
+                                <RiArrowDropLeftLine size={60} color='#04724D' />
+                            </button>
+
+                            <img src={imagesURLs[imagemId]} onClick={() => console.log(props.pageType)} className={styles.imagePreview} />
+
+                            <button className={styles.switchPreviewBtnRight} id='Direita' onClick={handleRight}>
+                                <RiArrowDropRightLine size={60} color='#04724D' />
+                            </button>
+
+                            {props.imageError &&
+                                <p className={styles.imgErrorMsg}>Necessário ao menos uma imagem</p>
+                            }
+                        </div>
+                        {props.isAtLimit ?
+                            <span style={{ color: "#FF8B8B", fontWeight: 600, marginTop: 0.2 + "rem" }}>Limite atingido!</span>
+                            :
+                            <span style={{ color: "#04724D", fontWeight: 600, marginTop: 0.2 + "rem" }}>3 max</span>
+                        }
+                    </div>
+                    {props.pageType !== "details" && <div className={styles.btnContainer}>
+                        <label
+                            htmlFor="uploadFile"
+                            className={props.pageType === "details" ? styles.addImageBtnDisabled : styles.addImageBtn}
+                        >
+                            <AiOutlinePlusCircle size={25} /> Adicionar Imagem
+                        </label>
+                        <input
+                            id='uploadFile'
+                            type='file'
+                            onChange={(e) => { handleInsertImages(e) }}
+                        />
+                    </div>
+                    }
+                    {props.isLoading ?
+                        <button className={styles.sendProductBtn} disabled>
+                            <l-ring-2
+                                size="40"
+                                stroke="5"
+                                stroke-length="0.25"
+                                bg-opacity="0.1"
+                                speed="0.8"
+                                color="#DCE4DC"
+                            ></l-ring-2>
+                        </button>
+                        :
+                        props.pageType !== "details" && <button className={styles.sendProductBtn} onClick={props.handleSubmit}><BiCheckCircle size={25} /> Concluir</button>
+                    }
+                    <button className={styles.cancelProductBtn} onClick={props.handleCancel}><MdOutlineCancel size={25} /> {props.pageType === "details" ? "Voltar" : "Cancelar"}</button>
+                </>
             }
-            <button className={styles.cancelProductBtn} onClick={props.handleCancel}><MdOutlineCancel size={25} /> {props.pageType === "details" ? "Voltar" : "Cancelar"}</button>
         </div>
     )
 }
