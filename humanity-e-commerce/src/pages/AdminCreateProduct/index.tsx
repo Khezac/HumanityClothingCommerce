@@ -7,6 +7,8 @@ import { useLocation, useNavigate, useParams } from 'react-router';
 import * as yup from "yup";
 import { deleteImageList, postImage } from '../../services/imageService';
 import { NewProductType, ProductType } from '../../types';
+import { toast, ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const formSchema = yup.object({
     name: yup.string().defined().required(),
@@ -42,6 +44,9 @@ export const AdminCreateProduct = () => {
         } catch (err) {
             console.log(err);
             setIsLoading(false)
+            toast.error("Erro na requisição!", {
+                position: 'top-right'
+            })
         }
     }
 
@@ -172,6 +177,7 @@ export const AdminCreateProduct = () => {
     return (
         <main className={styles.pageContainer}>
             <div className={styles.infosContainer}>
+                <ToastContainer/>
                 <ProductImageCapture
                     handleFile={handleFile}
                     handleSubmit={handleSubmit}
