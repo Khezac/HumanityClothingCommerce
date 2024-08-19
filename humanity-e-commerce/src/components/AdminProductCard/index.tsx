@@ -1,15 +1,15 @@
 import styles from './styles.module.css'
 import { SlOptions } from "react-icons/sl"
-import { ProductType } from "../../pages/AdminProductList"
 import { Dispatch, SetStateAction, useEffect, useRef, useState } from 'react'
 import { deleteProductById } from '../../services/productService'
 import { useNavigate } from 'react-router'
+import { ProductType } from '../../types'
 
 type AdminCardProps = {
     product: ProductType,
     setProductList: Dispatch<SetStateAction<ProductType[] | undefined>>,
     setSearchResult: Dispatch<SetStateAction<ProductType[] | undefined>>,
-    productList: ProductType[],
+    productList: ProductType[]
 }
 
 export const AdminProductCard = ({ product, setProductList, setSearchResult }: AdminCardProps) => {
@@ -17,6 +17,7 @@ export const AdminProductCard = ({ product, setProductList, setSearchResult }: A
     const [visible, setVisible] = useState<boolean>(false);
     const [willDelete, setWillDelete] = useState<boolean>(false);
     const [isDeleting, setIsDeleting] = useState<boolean>(false);
+    const [imgUrl, setImgUrl] = useState('');
 
     const optionsBtnRef = useRef<HTMLTableCellElement>(null);
     const optionsBoxRef = useRef<HTMLUListElement>(null);
@@ -36,6 +37,9 @@ export const AdminProductCard = ({ product, setProductList, setSearchResult }: A
     }
 
     useEffect(() => {
+        // Formata a URL para conseguir exibir a imagem recebida da API
+        setImgUrl(`data:${product.images[0].type};base64,${product.images[0].bytes}`);
+
         const handleClickOutside = (event: MouseEvent) => {
             if (
                 optionsBtnRef.current &&
@@ -72,7 +76,7 @@ export const AdminProductCard = ({ product, setProductList, setSearchResult }: A
     return (
         <tr className={styles.productInfoRow}>
             <td className={styles.productNameColumn}>
-                <img className={styles.productImg} src={product.imageURL[0]} alt='Foto do produto' />
+                <img className={styles.productImg} src={imgUrl} alt='Foto do produto' onClick={() => console.log(imgUrl)}/> {/* TRANSFORMAR TODO ESSE SRC EM UMA STATE */}
                 <p>{product.name}</p>
             </td>
             <td style={{ width: 17.5 + "%" }}>
