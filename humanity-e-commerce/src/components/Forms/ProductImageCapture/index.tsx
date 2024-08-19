@@ -7,6 +7,7 @@ import { ring2 } from 'ldrs'
 import { MdOutlineCancel } from "react-icons/md";
 import { RiArrowDropLeftLine, RiArrowDropRightLine } from "react-icons/ri";
 import { ProductType } from '../../../types';
+import { IoImagesSharp } from "react-icons/io5";
 
 type ImageCaptureProps = {
     handleFile: (value: FileList) => void,
@@ -157,7 +158,12 @@ export const ProductImageCapture = (props: ImageCaptureProps) => {
                                 </button>
                             }
 
-                            <img src={imagesURLs[imagemId]} onClick={() => console.log(props.pageType)} className={styles.imagePreview} />
+                            {imagesURLs.length > 0 ?
+                                <img src={imagesURLs[imagemId]} onClick={() => console.log(props.pageType)} className={styles.imagePreview} />
+                                :
+                                <IoImagesSharp color='#8DB38B' className={styles.imagePreviewIcon}/>
+                                // <img src={imagesURLs[imagemId]} onClick={() => console.log(props.pageType)} className={styles.imagePreview} />
+                            }
 
                             {imagesURLs.length > 1 &&
                                 <button className={styles.switchPreviewBtnRight} id='Direita' onClick={handleRight}>
@@ -172,9 +178,9 @@ export const ProductImageCapture = (props: ImageCaptureProps) => {
                         {props.isAtLimit ?
                             <span style={{ color: "#FF8B8B", fontWeight: 600, marginTop: 0.2 + "rem" }}>Limite atingido!</span>
                             : props.pageType === "details" ?
-                            <span style={{marginTop: 0.2 + "rem" }}></span>
-                            :
-                            <span style={{ color: "#04724D", fontWeight: 600, marginTop: 0.2 + "rem" }}>3 max</span>
+                                <span style={{ marginTop: 0.2 + "rem" }}></span>
+                                :
+                                <span style={{ color: "#04724D", fontWeight: 600, marginTop: 0.2 + "rem" }}>3 max</span>
                         }
                     </div>
                     {props.pageType !== "details" && <div className={styles.btnContainer}>
