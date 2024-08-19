@@ -142,7 +142,7 @@ export const ProductImageCapture = (props: ImageCaptureProps) => {
                             <h1>
                                 {props.product ? imagemId + 1 : imagesURLs.length != 0 ? imagemId + 1 : 0}/{imagesURLs.length}
                             </h1>
-                            {props.pageType === 'edit' || props.pageType === 'creat' ?
+                            {props.pageType === 'edit' || props.pageType === 'creat' && imagesURLs.length > 0 ?
                                 <button className={styles.deleteImgBtn} onClick={handleDelete}>
                                     <FaTrash size={25} color='#04724D' />
                                 </button>
@@ -151,15 +151,19 @@ export const ProductImageCapture = (props: ImageCaptureProps) => {
                             }
                         </menu>
                         <div className={props.imageError ? styles.imagePreviewContainerError : styles.imagePreviewContainer}>
-                            <button className={styles.switchPreviewBtnLeft} id='Esquerda' onClick={handleLeft}>
-                                <RiArrowDropLeftLine size={60} color='#04724D' />
-                            </button>
+                            {imagesURLs.length > 1 &&
+                                <button className={styles.switchPreviewBtnLeft} id='Esquerda' onClick={handleLeft}>
+                                    <RiArrowDropLeftLine size={60} color='#04724D' />
+                                </button>
+                            }
 
                             <img src={imagesURLs[imagemId]} onClick={() => console.log(props.pageType)} className={styles.imagePreview} />
 
-                            <button className={styles.switchPreviewBtnRight} id='Direita' onClick={handleRight}>
-                                <RiArrowDropRightLine size={60} color='#04724D' />
-                            </button>
+                            {imagesURLs.length > 1 &&
+                                <button className={styles.switchPreviewBtnRight} id='Direita' onClick={handleRight}>
+                                    <RiArrowDropRightLine size={60} color='#04724D' />
+                                </button>
+                            }
 
                             {props.imageError &&
                                 <p className={styles.imgErrorMsg}>Necessário ao menos uma imagem</p>
@@ -167,6 +171,8 @@ export const ProductImageCapture = (props: ImageCaptureProps) => {
                         </div>
                         {props.isAtLimit ?
                             <span style={{ color: "#FF8B8B", fontWeight: 600, marginTop: 0.2 + "rem" }}>Limite atingido!</span>
+                            : props.pageType === "details" ?
+                            <span style={{marginTop: 0.2 + "rem" }}></span>
                             :
                             <span style={{ color: "#04724D", fontWeight: 600, marginTop: 0.2 + "rem" }}>3 max</span>
                         }
@@ -202,6 +208,6 @@ export const ProductImageCapture = (props: ImageCaptureProps) => {
                     <button className={styles.cancelProductBtn} onClick={props.handleCancel}><MdOutlineCancel size={25} /> {props.pageType === "details" ? "Voltar" : "Cancelar"}</button>
                 </>
             }
-        </div>
+        </div >
     )
 }
