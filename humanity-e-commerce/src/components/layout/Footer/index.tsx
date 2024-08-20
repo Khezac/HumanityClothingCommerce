@@ -20,7 +20,7 @@ export const Footer = () => {
             </div>
             <div className={styles.footerTexts}>
                 <p>2024 Khezac Khalleb, Todos os Direitos Reservados</p>
-                <p>Projeto OpenSource, acesse o <a>código raiz aqui</a></p>
+                <p>Projeto OpenSource, acesse o <a className={styles.repoLink} href='https://github.com/Khezac/HumanityClothingCommerce'>código raiz aqui</a></p>
             </div>
         </footer>
     )

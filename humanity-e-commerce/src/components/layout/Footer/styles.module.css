@@ -35,3 +35,12 @@
     justify-content: space-between;
     border-top: 2px solid #DCE4DC;
 }
+
+.repoLink {
+    color: #04724D;
+    transition-duration: 0.2s;
+}
+
+.repoLink:hover {
+    color: #8DB38B;
+}
