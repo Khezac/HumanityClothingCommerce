@@ -76,7 +76,7 @@ export const AdminProductCard = ({ product, setProductList, setSearchResult }: A
     return (
         <tr className={styles.productInfoRow}>
             <td className={styles.productNameColumn}>
-                <img className={styles.productImg} src={imgUrl} alt='Foto do produto' onClick={() => console.log(imgUrl)}/> {/* TRANSFORMAR TODO ESSE SRC EM UMA STATE */}
+                <img className={styles.productImg} src={imgUrl} alt='Foto do produto'/>
                 <p>{product.name}</p>
             </td>
             <td style={{ width: 17.5 + "%" }}>
