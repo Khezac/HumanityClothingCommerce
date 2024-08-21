@@ -1,55 +1,39 @@
-.inputLabel {
-    width: 60px;
-    height: 60px;
+.inputLabel, .inputLabelChecked {
+    width: 50px;
+    height: 50px;
     position: absolute;
     left: 50%;
     top: 50%;
     transform: translate(-50%,-50%);
     font-size: 28px;
     font-weight: 300;
-    color: #8DB38B;
     cursor: pointer;
     text-align: center;
     vertical-align: super;
-    padding-top: 15%;
+    padding-top: 10%;
+}
+
+.inputLabel {
+    color: #8DB38B;
 }
 
 .inputLabelChecked {
-    width: 60px;
-    height: 60px;
-    position: absolute;
-    left: 50%;
-    top: 50%;
-    transform: translate(-50%,-50%);
-    font-size: 28px;
-    font-weight: 300;
     color: #F5F6F5;
-    cursor: pointer;
-    text-align: center;
-    vertical-align: super;
-    padding-top: 15%;
 }
 
 input[type="radio"] {
     appearance: none;
     background-color: transparent;
     margin: 0;
-    width: 60px;
-    height: 60px;
+    width: 50px;
+    height: 50px;
     border: 2px solid #8DB38B;
     transition-duration: 0.1s;
     cursor: pointer;
 }
 
 input[type="radio"]:hover {
-    appearance: none;
     background-color: #DCE4DC;
-    margin: 0;
-    width: 60px;
-    height: 60px;
-    border: 2px solid #8DB38B;
-    transition-duration: 0.1s;
-    cursor: pointer;
 }
 
 input[type="radio"]:checked {

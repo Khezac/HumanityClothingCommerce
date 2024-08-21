@@ -1,11 +1,9 @@
-import { ChangeEvent, useEffect, useState } from 'react'
 import styles from './styles.module.css'
-import { ProductPageRadio } from '../../components/Forms/ProductPageRadio';
+import { useEffect, useState } from 'react'
 import { useParams } from 'react-router';
 import { getAllProducts, getProductById } from '../../services/productService';
 import { ImageType, ProductType } from '../../types';
 import { ProductPageImages } from '../../components/ProductPageImages';
-import { FaPlus, FaMinus } from "react-icons/fa";
 import { RecomendedProductCard } from '../../components/RecomendedProductCard';
 import { ProductPageInfos } from '../../components/ProductPageInfos';
 
@@ -20,7 +18,6 @@ export const ProductPage = () => {
         try {
             const { data } = await getProductById(id);
             setProduct(data)
-            getSizesList(data?.size)
         } catch (err) {
             console.log(err)
         }
@@ -39,13 +36,6 @@ export const ProductPage = () => {
         getProductData(id as string);
         getRecomendedProducts();
     }, [])
-
-    const getSizesList = (sizes: string) => {
-        console.log(sizes)
-        // const sizeArray = Array.from(sizes.slice());
-        // setSizes(sizeArray);
-        // LÓGICA DE ARMAZENAMENTO DE TAMANHOS DEVERÁ SER REFATORADA
-    }
 
     return (
         <main className={styles.pageContainer}>
