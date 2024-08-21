@@ -1,0 +1,130 @@
+.productBuyInfo {
+    width: 33vw;
+}
+
+.productMainInfo {
+    display: flex;
+    flex-direction: column;
+    border-bottom: 1px solid black;
+    padding-bottom: 0.8rem;
+    margin-bottom: 0.8rem;
+}
+
+.productName, .productCategory, .productPrice {
+    font-size: 32px;
+}
+
+.productName {
+    font-weight: bold;
+}
+
+.productCategory {
+    color: #8DB38B;
+}
+
+.productPrice {
+    font-weight: 600;
+    color: #8DB38B;
+}
+
+.productSize {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    border-bottom: 1px solid black;
+    padding-bottom: 1.5rem;
+    margin-bottom: 1rem;
+}
+
+.sizeTitle {
+    font-size: 24px;
+    font-weight: 600;
+}
+
+.sizeBoxWrapper {
+    display: flex;
+    gap: 1rem;
+    list-style: none;
+}
+
+.inputContainer {
+    width: 60px;
+    height: 60px;
+    position: relative;
+}
+
+.btnContainer {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    border-bottom: 1px solid black;
+    padding-bottom: 1.5rem;
+    margin-bottom: 1rem;
+}
+
+.btnContainer > label {
+    font-size: 24px;
+    font-weight: 600;
+}
+
+.btnContainer > label > input {
+    background-color: transparent;
+    border: 1px solid black;
+    outline: none;
+}
+
+.amountInputContainer {
+    width: fit-content;
+    display: flex;
+    border: 1px solid #8DB38B;
+    border-radius: 4px;
+    overflow: hidden;
+}
+
+.amountInputBtns {
+    background-color: #8DB38B;
+    border: none;
+    width: 30px;
+    height: 30px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+}
+
+.amountInputBtns:hover {
+    background-color: #04724D;
+}
+
+.amountInput {
+    border: none;
+    background-color: transparent;
+    outline: none;
+    text-align: center;
+}
+
+.cartBtn {
+    background-color: transparent;
+    border: 2px solid black;
+    padding: 1rem;
+    font-size: 24px;
+    font-weight: bold;
+    cursor: pointer;
+    transition-duration: 0.2s;
+}
+
+.cartBtn:hover,.buyBtn:hover {
+    background-color: black;
+    color: #F5F6F5;
+}
+
+.buyBtn {
+    background-color: #04724D;
+    border: none;
+    padding: 1rem;
+    font-size: 24px;
+    font-weight: bold;
+    cursor: pointer;
+    color: #F5F6F5;
+    transition-duration: 0.2s;
+}
