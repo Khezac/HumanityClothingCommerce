@@ -16,22 +16,6 @@ export type ImageType = {
     type: string,
 }
 
-// export type AllImagesProductType = {
-//     product_id: number,
-//     name: string,
-//     gender: string,
-//     size: string,
-//     unit_price: string,
-//     category: string,
-//     description: string,
-//     imageURL: Image[]
-// }
-
-// export type Image = {
-//     fileName: string,
-//     url: string
-// }
-
 export type NewProductType = {
     product_id: number,
     name: string,
@@ -40,4 +24,12 @@ export type NewProductType = {
     gender: string,
     unit_price: number,
     category: string
+}
+
+export type CartType = {
+    user_id: number,
+    product_id: number,
+    product_amount: number,
+    cart_price: number,
+    selected_size: string;
 }

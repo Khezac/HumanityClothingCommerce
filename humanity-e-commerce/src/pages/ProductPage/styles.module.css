@@ -6,10 +6,19 @@
     gap: 4rem;
 }
 
+.loadingContainer {
+    display: flex;
+    min-height: 60vh;
+    justify-content: center;
+    align-items: center;
+    font-size: 32px;
+    font-weight: bold;
+}
+
 .firstSection {
     display: flex;
     justify-content: center;
-    gap: 1rem
+    gap: 1rem;
 }
 
 .descriptionTitle {

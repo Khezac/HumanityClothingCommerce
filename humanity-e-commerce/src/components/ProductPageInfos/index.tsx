@@ -1,29 +1,47 @@
 import { FaMinus, FaPlus } from 'react-icons/fa'
 import { ProductPageRadio } from '../Forms/ProductPageRadio'
 import styles from './styles.module.css'
-import { ProductType } from '../../types'
+import { CartType, ProductType } from '../../types'
 import { ChangeEvent, useEffect, useState } from 'react'
 
 type BuyPageProps = {
     product: ProductType,
+    newCartProduct: (value:CartType) => void
 }
 
 export const ProductPageInfos = (props: BuyPageProps) => {
     const [labelChecked, setLabelChecked] = useState(''); // State utilizada para mudar a cor da label do inputRadio
     const [amount, setAmount] = useState<number>(0);
     const [sizes, setSizes] = useState<RegExpMatchArray>();
+    const [selectedSize, setSelectedSize] = useState<string>();
 
     useEffect(() => {
         getSizeArray()
     }, [props.product])
 
     const handleRadio = (e: ChangeEvent<HTMLInputElement>) => {
-        console.log(e.target.value)
+        setSelectedSize(e.target.value)
     }
 
     const getSizeArray = () => {
         const sizeArray = props.product.size.match(/\b\d+\b|\b[A-Za-z]+\b/g)
         setSizes(sizeArray as RegExpMatchArray)
+    }
+
+    const insertIntoCart = () => {
+        // ESSA FUNÇÂO È RESPONSÁVEL POR FAZER AS VALIDAÇÕES DE SELEÇÃO DE TAMANHO E QUANTIDADE E PERSISTIR NO CARRINHO
+
+        // PRECISA DO SISTEMA DE LOGIN PARA CONSEGUIR GERAR ESSE CART
+
+        const newCart: CartType = {
+            cart_price: parseFloat(props.product?.unit_price) * amount,
+            product_amount: amount,
+            product_id: props.product.product_id,
+            user_id: 1, // DEVERA SER O ID DE QUEM ESTÀ LOGADO NO MOMENTO
+            selected_size: selectedSize as string
+        }
+
+        props.newCartProduct(newCart);
     }
 
     return (
@@ -81,7 +99,7 @@ export const ProductPageInfos = (props: BuyPageProps) => {
                         <FaPlus size={20} color='#F5F6F5' />
                     </button>
                 </div>
-                <button className={styles.cartBtn}>Adicionar ao carrinho</button>
+                <button className={styles.cartBtn} onClick={insertIntoCart}>Adicionar ao carrinho</button>
                 <button className={styles.buyBtn}>Comprar produto</button>
             </div>
         </div>
