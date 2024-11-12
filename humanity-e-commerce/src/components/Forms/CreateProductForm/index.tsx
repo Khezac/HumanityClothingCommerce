@@ -23,11 +23,13 @@ export const CreateProductForm = (props: CreateProductProps) => {
     const [description, setDescription] = useState<string>("");
 
     const handleInfo = () => {
+        const sizes = props.product?.size.match(/\b\d+\b|\b[A-Za-z]+\b/g)?.join(",")
+
         const newProduct: NewProductType = {
             product_id: props.product?.product_id,
             name: name as string,
             description: description as string,
-            size: size as string,
+            size: sizes as string,
             gender: gender as string,
             unit_price: parseFloat(unit_price as string),
             category: category as string

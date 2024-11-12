@@ -1,0 +1,41 @@
+.inputLabel, .inputLabelChecked {
+    width: 50px;
+    height: 50px;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%,-50%);
+    font-size: 28px;
+    font-weight: 300;
+    cursor: pointer;
+    text-align: center;
+    vertical-align: super;
+    padding-top: 10%;
+}
+
+.inputLabel {
+    color: #8DB38B;
+}
+
+.inputLabelChecked {
+    color: #F5F6F5;
+}
+
+input[type="radio"] {
+    appearance: none;
+    background-color: transparent;
+    margin: 0;
+    width: 50px;
+    height: 50px;
+    border: 2px solid #8DB38B;
+    transition-duration: 0.1s;
+    cursor: pointer;
+}
+
+input[type="radio"]:hover {
+    background-color: #DCE4DC;
+}
+
+input[type="radio"]:checked {
+    background-color: #8DB38B;
+}

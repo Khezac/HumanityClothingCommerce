@@ -2,11 +2,11 @@ import { useNavigate } from 'react-router';
 import { ProductType } from '../../types'
 import styles from './styles.module.css'
 
-type ProductCardProps = {
+type RecomendedProductProps = {
         item: ProductType;
 }
 
-export const ProductCard = ({ item }: ProductCardProps) => {
+export const RecomendedProductCard = ({ item }: RecomendedProductProps) => {
 
     const navigate = useNavigate();
 

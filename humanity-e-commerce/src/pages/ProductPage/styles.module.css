@@ -1,0 +1,46 @@
+.pageContainer {
+    padding: 5rem;
+    min-height: 95vh;
+    display: flex;
+    flex-direction: column;
+    gap: 4rem;
+}
+
+.loadingContainer {
+    display: flex;
+    min-height: 60vh;
+    justify-content: center;
+    align-items: center;
+    font-size: 32px;
+    font-weight: bold;
+}
+
+.firstSection {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+}
+
+.descriptionTitle {
+    font-size: 32px;
+    font-weight: bold;
+    border-bottom: 1px solid black;
+    margin-bottom: 1rem;
+}
+
+.recomendedProducts {
+    overflow: hidden;
+}
+
+.recomendedProducts > h1 {
+    font-size: 32px;
+    border-bottom: 1px solid black;
+    margin-bottom: 1rem;
+}
+
+.carrousel {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-between;
+}
