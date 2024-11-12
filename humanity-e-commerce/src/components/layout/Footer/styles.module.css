@@ -4,7 +4,14 @@
     padding: 2rem;
     padding-left: 5rem;
     padding-right: 5rem;
-    max-width: 100%;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+
+.footerContainer {
+    width: 100%;
+    max-width: 1280px;
 }
 
 .footerLinks {
