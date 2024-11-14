@@ -19,6 +19,7 @@ export const ProductPageImages = (props: PageImagesProps) => {
     useEffect(() => {
         if(props.images) {
             setMainImage(props.images[0])
+            setImageShowing(String(props.images[0].image_id));
         }
     },[props.images])
 
