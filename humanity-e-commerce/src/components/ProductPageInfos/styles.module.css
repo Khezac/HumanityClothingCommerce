@@ -77,13 +77,12 @@
 .amountInputContainer {
     width: fit-content;
     display: flex;
-    border: 1px solid #8DB38B;
-    border-radius: 4px;
     overflow: hidden;
+    padding: 0.5rem;
+    background-color: #DCE4DC;
 }
 
 .amountInputBtns {
-    background-color: #8DB38B;
     border: none;
     width: 30px;
     height: 30px;
@@ -91,10 +90,11 @@
     justify-content: center;
     align-items: center;
     cursor: pointer;
+    background-color: transparent;
 }
 
 .amountInputBtns:hover {
-    background-color: #04724D;
+    background-color: #8DB38B;
 }
 
 .amountInput {
@@ -102,6 +102,11 @@
     background-color: transparent;
     outline: none;
     text-align: center;
+    color: black;
+    font-size: 20px;
+    border-right: 2px solid black;
+    border-left: 2px solid black;
+    margin: 0 0.5rem 0 0.5rem;
 }
 
 .cartBtn {

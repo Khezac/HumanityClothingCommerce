@@ -79,7 +79,7 @@ export const ProductPageInfos = (props: BuyPageProps) => {
                         className={styles.amountInputBtns}
                         onClick={() => amount > 0 ? setAmount((prev) => prev - 1) : ''}
                     >
-                        <FaMinus size={20} color='#F5F6F5' />
+                        <FaMinus size={16} color='black' />
                     </button>
                     <input
                         className={styles.amountInput}
@@ -96,7 +96,7 @@ export const ProductPageInfos = (props: BuyPageProps) => {
                         className={styles.amountInputBtns}
                         onClick={() => amount < 100 && setAmount((prev) => prev + 1)}
                     >
-                        <FaPlus size={20} color='#F5F6F5' />
+                        <FaPlus size={16} color='black' />
                     </button>
                 </div>
                 <button className={styles.cartBtn} onClick={insertIntoCart}>Adicionar ao carrinho</button>
