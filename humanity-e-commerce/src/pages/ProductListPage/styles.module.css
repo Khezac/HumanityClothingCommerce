@@ -1,0 +1,27 @@
+.pageContainer {
+    padding: 5rem;
+    min-height: 95vh;
+    display: flex;
+    flex-direction: column;
+    gap: 4rem;
+    max-width: 1470px;
+    width: 100%;
+}
+
+.bannerContainer {
+    width: 100%;
+    height: 35vh;
+    background-image: url("../../assets/Banners/BannerListaProdutos.jpg");
+    background-position: bottom 35% center;
+    background-size: cover;
+    background-repeat: no-repeat;
+    border-radius: 8px;
+    background-color: lime;
+}
+
+.greenBar {
+    width: 100%;
+    height: 20px;
+    background-color: #04724D;
+    border-radius: 8px 8px 0 0;
+}
