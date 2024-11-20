@@ -28,7 +28,8 @@
     min-height: 20vh;
     background-color: #8DB38B;
     object-fit: cover;
-    box-shadow: 0px 0px 7px 1px #8db38b73;
+    /* box-shadow: 0px 0px 7px 1px #8db38b73; */
+    outline: 3px solid #8db38b73;
 }
 
 .mainImg {

@@ -3,10 +3,10 @@
     height: 50px;
     position: absolute;
     left: 50%;
-    top: 50%;
+    top: 48%;
     transform: translate(-50%,-50%);
     font-size: 28px;
-    font-weight: 300;
+    font-weight: 400;
     cursor: pointer;
     text-align: center;
     vertical-align: super;
