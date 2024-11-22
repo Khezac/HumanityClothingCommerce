@@ -12,7 +12,7 @@ export const Header = () => {
                     <li><Link to="/">Home</Link></li>
                     <li><a>Masculino</a></li>
                     <li><a>Feminino</a></li>
-                    <li><a>Todas as peças</a></li>
+                    <li><Link to="/ProductListPage">Todas as peças</Link></li>
                 </ul>
             </nav>
             <div className={styles.profileNav}>

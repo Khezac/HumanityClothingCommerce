@@ -1,7 +1,7 @@
 .productCard {
-    max-width: 24%;
     cursor: pointer;
     margin-top: 24px;
+    width: 300px;
 }
 
 .productImg {
