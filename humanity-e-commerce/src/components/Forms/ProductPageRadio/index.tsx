@@ -21,6 +21,7 @@ export const ProductPageRadio = (props: RadioProps) => {
                 {props.value}
             </label>
             <input
+                className={styles.inputRadio}
                 type='radio'
                 id={props.id}
                 name={props.name}

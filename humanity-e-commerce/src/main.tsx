@@ -14,5 +14,5 @@ ReactDOM.createRoot(document.getElementById('root')!).render(
       <Rotas/>
       <Footer />
     </BrowserRouter>
-  </React.StrictMode>,
+  </React.StrictMode>
 )

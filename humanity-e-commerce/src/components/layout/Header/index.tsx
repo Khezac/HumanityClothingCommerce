@@ -1,18 +1,25 @@
 import styles from './styles.module.css'
 import LogoDark from '../../../assets/Logos/LogoDark.png'
 import { CgProfile } from "react-icons/cg";
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 export const Header = () => {
+    const navigate = useNavigate();
+
+    const goToListPage = (page:string) => {
+        navigate("/ProductListPage/" + page)
+        window.location.reload();
+    }
+
     return (
         <div className={styles.headerContainer}>
             <Link to="/"><img src={LogoDark}/></Link>
             <nav>
                 <ul className={styles.menuNav}>
                     <li><Link to="/">Home</Link></li>
-                    <li><a>Masculino</a></li>
-                    <li><a>Feminino</a></li>
-                    <li><Link to="/ProductListPage">Todas as peças</Link></li>
+                    <li><a onClick={() => {goToListPage('masculino')}}>Masculino</a></li>
+                    <li><a onClick={() => {goToListPage('feminino')}}>Feminino</a></li>
+                    <li><a onClick={() => {goToListPage('')}}>Todas as peças</a></li>
                 </ul>
             </nav>
             <div className={styles.profileNav}>
