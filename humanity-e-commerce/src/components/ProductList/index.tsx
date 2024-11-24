@@ -1,5 +1,5 @@
 import { ProductType } from '../../types'
-import { ProductCard } from '../ProductCard'
+import { ProductListCard } from '../ProductListCard'
 import styles from './style.module.css'
 
 type ProductListProps = {
@@ -13,7 +13,7 @@ export const ProductList = ({products, isLoading}:ProductListProps) => {
                 {products && !isLoading ? 
                     products.map((element, index) => {
                         return (
-                            <ProductCard item={element} key={index}/>
+                            <ProductListCard item={element} key={index}/>
                         )
                     })
                     : isLoading ?

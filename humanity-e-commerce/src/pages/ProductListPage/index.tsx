@@ -30,10 +30,23 @@ export const ProductListPage = () => {
     return (
         <main className={styles.pageContainer}>
             <ProductListPageBanner/>
-            <ProductList 
-                products={products as ProductType[]}
-                isLoading={isLoading}
-            />
+            <div className={styles.contentContainer}>
+                <div className={styles.filterContainer}>
+                    <ul className={styles.genderList}>
+                        <li className={styles.listTitle}>Gênero</li>
+                    </ul>
+
+                    <div className={styles.listSeparator}/>
+                    
+                    <ul className={styles.sizeList}>
+                        <li className={styles.listTitle}>Tamanho</li>
+                    </ul>
+                </div>
+                <ProductList 
+                    products={products as ProductType[]}
+                    isLoading={isLoading}
+                />
+            </div>
         </main>
     )
 }

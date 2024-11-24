@@ -1,0 +1,23 @@
+.productCard {
+    cursor: pointer;
+    margin-top: 24px;
+    width: 31%;
+}
+
+.productImg {
+    width: 100%;
+    height: 36vh;
+    object-fit: cover;
+    border-radius: 4px;
+    min-height: 350px;
+}
+
+.productInfo {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+}
+
+.productCategory {
+    color: var(--font-selected-color);
+}
