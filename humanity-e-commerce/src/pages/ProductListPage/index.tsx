@@ -11,6 +11,7 @@ export const ProductListPage = () => {
     const [products, setProducts] = useState<ProductType[]>();
     const [selectedProducts, setSelectedProducts] = useState<ProductType[]>();
     const [isLoading, setIsLoading] = useState<boolean>(false);
+    const [sizeList, setSizeList] = useState<string[]>();
 
     const { gender } = useParams();
 
@@ -34,6 +35,20 @@ export const ProductListPage = () => {
         }
     }
 
+    const loadAllSizes = () => {
+        let sizeArray: string[] = [];
+        products?.map((element) => {
+            sizeArray.push(...element.size.match(/\b\d+\b|\b[A-Za-z]+\b/g) as RegExpMatchArray);
+        })
+
+        // Limpa as duplicatas
+        sizeArray = sizeArray.filter((sizeValue, index) => {
+            return (sizeArray.indexOf(sizeValue) === index)
+        })
+
+        setSizeList(sizeArray);
+    }
+
     const changeProductGender = (gender: string) => {
         if (gender === 'todos' || !gender) {
             setSelectedProducts(products);
@@ -52,6 +67,7 @@ export const ProductListPage = () => {
 
     useEffect(() => {
         validatePage()
+        loadAllSizes()
     },[products])
 
     return (
@@ -109,7 +125,21 @@ export const ProductListPage = () => {
                     
                     <h2 className={styles.listTitle}>Tamanho</h2>
                     <ul className={styles.sizeList}>
-                        <li></li>
+                        {sizeList && sizeList.map((size, index) => {
+                            return (
+                                <li className={styles.sizeListLine} key={index}>
+                                    <input 
+                                        type='radio' 
+                                        className={styles.genderRadio} 
+                                        id={`${size}`} 
+                                        value={size}
+                                        name='genderRadio' 
+                                        onChange={(e) => console.log(e.target.id)} 
+                                    />
+                                    <label htmlFor='todos'>{size}</label>  
+                                </li>
+                            )
+                        })}
                     </ul>
                 </div>
                 <ProductList 

@@ -84,5 +84,17 @@
 }
 
 .sizeList {
+    display: flex;
+    align-items: center;
+    column-gap:1rem;
+    row-gap: 0.5rem;
+    justify-content: space-between;
+    flex-wrap: wrap;
+}
 
+.sizeListLine {
+    display: flex;
+    align-items: center;
+    gap: 0.15rem;
+    min-width: 3rem;
 }
