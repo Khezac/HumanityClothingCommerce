@@ -10,6 +10,7 @@ import { useParams } from 'react-router'
 export const ProductListPage = () => {
     const [products, setProducts] = useState<ProductType[]>();
     const [selectedProducts, setSelectedProducts] = useState<ProductType[]>();
+    const [filteredProducts, setFilteredProducts] = useState<ProductType[]>();
     const [isLoading, setIsLoading] = useState<boolean>(false);
     const [sizeList, setSizeList] = useState<string[]>();
 
@@ -23,6 +24,7 @@ export const ProductListPage = () => {
             const {data} = await getAllProducts();
             setProducts(data)
             setSelectedProducts(data);
+            setFilteredProducts(data);
         } catch (err) {
             console.log(err)
         }
@@ -37,7 +39,7 @@ export const ProductListPage = () => {
 
     const loadAllSizes = () => {
         let sizeArray: string[] = [];
-        products?.map((element) => {
+        selectedProducts?.map((element) => {
             sizeArray.push(...element.size.match(/\b\d+\b|\b[A-Za-z]+\b/g) as RegExpMatchArray);
         })
 
@@ -52,13 +54,27 @@ export const ProductListPage = () => {
     const changeProductGender = (gender: string) => {
         if (gender === 'todos' || !gender) {
             setSelectedProducts(products);
+            setFilteredProducts(products);
         } else {
             setSelectedProducts(
                 products?.filter((element) => {
                     return element.gender === gender.toUpperCase()
                 })
             )
+            setFilteredProducts(
+                products?.filter((element) => {
+                    return element.gender === gender.toUpperCase()
+                })
+            )
         }
+    }
+
+    const changeProductSize = (size: string) => {
+        setFilteredProducts(
+            selectedProducts?.filter((element) => {
+                return element.size.toUpperCase().includes(size.toUpperCase());
+            })
+        )
     }
 
     useEffect(() => {
@@ -69,6 +85,10 @@ export const ProductListPage = () => {
         validatePage()
         loadAllSizes()
     },[products])
+
+    useEffect(() => {
+        loadAllSizes()
+    },[selectedProducts])
 
     return (
         <main className={styles.pageContainer}>
@@ -133,8 +153,8 @@ export const ProductListPage = () => {
                                         className={styles.genderRadio} 
                                         id={`${size}`} 
                                         value={size}
-                                        name='genderRadio' 
-                                        onChange={(e) => console.log(e.target.id)} 
+                                        name='sizeRadio' 
+                                        onChange={(e) => changeProductSize(e.target.id)} 
                                     />
                                     <label htmlFor='todos'>{size}</label>  
                                 </li>
@@ -143,7 +163,7 @@ export const ProductListPage = () => {
                     </ul>
                 </div>
                 <ProductList 
-                    products={selectedProducts as ProductType[]}
+                    products={filteredProducts as ProductType[]}
                     isLoading={isLoading}
                 />
             </div>
