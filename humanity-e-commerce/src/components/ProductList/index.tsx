@@ -10,13 +10,7 @@ type ProductListProps = {
 export const ProductList = ({products, isLoading}:ProductListProps) => {
     return(
         <div className={styles.cardsContainer}>
-                {products && !isLoading ? 
-                    products.map((element, index) => {
-                        return (
-                            <ProductListCard item={element} key={index}/>
-                        )
-                    })
-                    : isLoading ?
+                {   isLoading ?
                     <div className={styles.loader}>
                         <l-ring-2
                             size="50"
@@ -27,7 +21,13 @@ export const ProductList = ({products, isLoading}:ProductListProps) => {
                             color="#56876D"
                         ></l-ring-2>
                     </div>
-                    :
+                    : products && !isLoading ? 
+                    products.map((element, index) => {
+                        return (
+                            <ProductListCard item={element} key={index}/>
+                        )
+                    })
+                    : 
                     <p className={styles.notFound}>Erro ao carregar produtos</p>
                 }
             </div>

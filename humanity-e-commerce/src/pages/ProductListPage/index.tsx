@@ -7,10 +7,12 @@ import { ring2 } from 'ldrs'
 import { ProductList } from '../../components/ProductList'
 import { useParams } from 'react-router'
 import { ProductListFilter } from '../../components/ProductListFilter'
+import { FaSearch } from 'react-icons/fa'
 
 export const ProductListPage = () => {
     const [products, setProducts] = useState<ProductType[]>();
-    const [selectedProducts, setSelectedProducts] = useState<ProductType[]>();
+    const [filteredByGender, setFilteredByGenders] = useState<ProductType[]>();
+    const [filteredBySize, setFilteredBySize] = useState<ProductType[]>();
     const [filteredProducts, setFilteredProducts] = useState<ProductType[]>();
     const [isLoading, setIsLoading] = useState<boolean>(false);
     const [sizeList, setSizeList] = useState<string[]>();
@@ -24,7 +26,7 @@ export const ProductListPage = () => {
         try{
             const {data} = await getAllProducts();
             setProducts(data)
-            setSelectedProducts(data);
+            setFilteredByGenders(data);
             setFilteredProducts(data);
         } catch (err) {
             console.log(err)
@@ -40,7 +42,7 @@ export const ProductListPage = () => {
 
     const loadAllSizes = () => {
         let sizeArray: string[] = [];
-        selectedProducts?.map((element) => {
+        filteredByGender?.map((element) => {
             sizeArray.push(...element.size.match(/\b\d+\b|\b[A-Za-z]+\b/g) as RegExpMatchArray);
         })
 
@@ -50,14 +52,15 @@ export const ProductListPage = () => {
         })
 
         setSizeList(sizeArray);
+        setFilteredBySize(undefined);
     }
 
     const changeProductGender = (gender: string) => {
         if (gender === 'todos' || !gender) {
-            setSelectedProducts(products);
+            setFilteredByGenders(products);
             setFilteredProducts(products);
         } else {
-            setSelectedProducts(
+            setFilteredByGenders(
                 products?.filter((element) => {
                     return element.gender === gender.toUpperCase()
                 })
@@ -71,11 +74,28 @@ export const ProductListPage = () => {
     }
 
     const changeProductSize = (size: string) => {
-        setFilteredProducts(
-            selectedProducts?.filter((element) => {
+        setFilteredBySize(
+            filteredByGender?.filter((element) => {
                 return element.size.toUpperCase().includes(size.toUpperCase());
             })
         )
+        setFilteredProducts(
+            filteredByGender?.filter((element) => {
+                return element.size.toUpperCase().includes(size.toUpperCase());
+            })
+        )
+    }
+
+    const handleSearchBar = (search: string) => {
+        if(filteredBySize) {
+            setFilteredProducts(filteredBySize?.filter((product) => {
+                return product.name.includes(search);
+            }));
+        } else {
+            setFilteredProducts(filteredByGender?.filter((product) => {
+                return product.name.includes(search);
+            }));
+        }
     }
 
     useEffect(() => {
@@ -89,7 +109,7 @@ export const ProductListPage = () => {
 
     useEffect(() => {
         loadAllSizes();
-    },[selectedProducts])
+    },[filteredByGender])
 
     return (
         <main className={styles.pageContainer}>
@@ -101,10 +121,27 @@ export const ProductListPage = () => {
                     sizeList={sizeList as string[]}
                     gender={gender as string}       
                 />
-                <ProductList 
-                    products={filteredProducts as ProductType[]}
-                    isLoading={isLoading}
-                />
+                <div className={styles.productsContainer}>
+                    <div className={styles.searchBarContainer}>
+                        <input 
+                            className={styles.searchInput}
+                            id='searchInput'
+                            placeholder='Procure um produto pelo nome...'
+                            autoComplete='off'
+                            onChange={(e) => handleSearchBar(e.target.value)}
+                        />
+                        <label
+                            htmlFor='searchInput'
+                            className={styles.searchIcon}
+                        >
+                            <FaSearch size={25} color='#56876D' />
+                        </label>
+                    </div>
+                    <ProductList 
+                        products={filteredProducts as ProductType[]}
+                        isLoading={isLoading}
+                    />
+                </div>
             </div>
         </main>
     )

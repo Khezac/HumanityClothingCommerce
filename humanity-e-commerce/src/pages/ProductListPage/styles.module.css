@@ -8,25 +8,41 @@
     width: 100%;
 }
 
-.bannerContainer {
-    width: 100%;
-    height: 35vh;
-    background-image: url("../../assets/Banners/BannerListaProdutos.jpg");
-    background-position: bottom 35% center;
-    background-size: cover;
-    background-repeat: no-repeat;
-    border-radius: 8px;
-    background-color: lime;
-}
-
-.greenBar {
-    width: 100%;
-    height: 20px;
-    background-color: #04724D;
-    border-radius: 8px 8px 0 0;
-}
-
 .contentContainer {
     display: flex;
     gap: 1.5rem;
+}
+
+.productsContainer {
+    width: 75%;
+}
+
+.searchBarContainer {
+    background-color: #DCE4DC;
+    height: 3rem;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    position: relative;
+}
+
+.searchInput {
+    width: 100%;
+    height: 100%;
+    border: none;
+    border-radius: 8px;
+    background-color: transparent;
+    outline-color: #04724d7e;
+    padding: 1rem;
+}
+
+.searchInput::placeholder {
+    color: #04724d7e;
+}
+
+.searchIcon {
+    width: 25px;
+    height: 25px;
+    position: absolute;
+    right: 1rem;
 }
