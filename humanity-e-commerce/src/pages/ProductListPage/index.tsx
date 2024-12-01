@@ -6,6 +6,7 @@ import styles from './styles.module.css'
 import { ring2 } from 'ldrs'
 import { ProductList } from '../../components/ProductList'
 import { useParams } from 'react-router'
+import { ProductListFilter } from '../../components/ProductListFilter'
 
 export const ProductListPage = () => {
     const [products, setProducts] = useState<ProductType[]>();
@@ -31,7 +32,7 @@ export const ProductListPage = () => {
         setIsLoading(false);
     }
 
-    const validatePage = () => {
+    const validatePageType = () => {
         if (gender) {
             changeProductGender(gender as string);
         }
@@ -78,90 +79,28 @@ export const ProductListPage = () => {
     }
 
     useEffect(() => {
-        getProductsData()
+        getProductsData();
     },[])
 
     useEffect(() => {
-        validatePage()
-        loadAllSizes()
+        validatePageType();
+        loadAllSizes();
     },[products])
 
     useEffect(() => {
-        loadAllSizes()
+        loadAllSizes();
     },[selectedProducts])
 
     return (
         <main className={styles.pageContainer}>
             <ProductListPageBanner/>
             <div className={styles.contentContainer}>
-                <div className={styles.filterContainer}>
-                    <h2 className={styles.listTitle}>Gênero</h2>
-                    <ul className={styles.genderList}>
-                        <li className={styles.genderListLine}>
-                            <input 
-                                type='radio' 
-                                className={styles.genderRadio} 
-                                id='todos' 
-                                name='genderRadio' 
-                                onChange={(e) => changeProductGender(e.target.id)} 
-                                defaultChecked={!gender ? true : false}
-                            />
-                            <label htmlFor='todos'>Todos</label>  
-                        </li>
-                        <li className={styles.genderListLine}>
-                            <input type='radio' 
-                                className={styles.genderRadio} 
-                                id='masculino' 
-                                name='genderRadio' 
-                                onChange={(e) => changeProductGender(e.target.id)} 
-                                defaultChecked={gender === 'masculino' ? true : false}
-                            />
-                            <label htmlFor='masculino'>Masculino</label>  
-                        </li>
-                        <li className={styles.genderListLine}>
-                            <input 
-                                type='radio' 
-                                className={styles.genderRadio} 
-                                id='feminino'
-                                name='genderRadio' 
-                                onChange={(e) => changeProductGender(e.target.id)}
-                                defaultChecked={gender === 'feminino' ? true : false}
-                            />
-                            <label htmlFor='feminino'>Feminino</label>  
-                        </li>
-                        <li className={styles.genderListLine}>
-                            <input 
-                                type='radio' 
-                                className={styles.genderRadio} 
-                                id='unisex' 
-                                name='genderRadio' 
-                                onChange={(e) => changeProductGender(e.target.id)}
-                            />
-                            <label htmlFor='unisex'>Unisex</label>
-                        </li>
-                    </ul>
-
-                    <div className={styles.listSeparator}/>
-                    
-                    <h2 className={styles.listTitle}>Tamanho</h2>
-                    <ul className={styles.sizeList}>
-                        {sizeList && sizeList.map((size, index) => {
-                            return (
-                                <li className={styles.sizeListLine} key={index}>
-                                    <input 
-                                        type='radio' 
-                                        className={styles.genderRadio} 
-                                        id={`${size}`} 
-                                        value={size}
-                                        name='sizeRadio' 
-                                        onChange={(e) => changeProductSize(e.target.id)} 
-                                    />
-                                    <label htmlFor='todos'>{size}</label>  
-                                </li>
-                            )
-                        })}
-                    </ul>
-                </div>
+                <ProductListFilter
+                    changeProductGender={changeProductGender}
+                    changeProductSize={changeProductSize}
+                    sizeList={sizeList as string[]}
+                    gender={gender as string}       
+                />
                 <ProductList 
                     products={filteredProducts as ProductType[]}
                     isLoading={isLoading}
