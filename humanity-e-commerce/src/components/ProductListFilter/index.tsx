@@ -10,7 +10,7 @@ type FilterProps = {
 export const ProductListFilter = ({changeProductGender, changeProductSize, sizeList, gender}:FilterProps) => {
     return (
         <div className={styles.filterContainer}>
-                    <h2 className={styles.listTitle}>Gênero</h2>
+                    <h2 className={styles.listTitle}>Gêneros</h2>
                     <ul className={styles.genderList}>
                         <li className={styles.genderListLine}>
                             <input 
@@ -58,7 +58,7 @@ export const ProductListFilter = ({changeProductGender, changeProductSize, sizeL
 
                     <div className={styles.listSeparator}/>
                     
-                    <h2 className={styles.listTitle}>Tamanho</h2>
+                    <h2 className={styles.listTitle}>Tamanhos</h2>
                     <ul className={styles.sizeList}>
                         {sizeList && sizeList.map((size, index) => {
                             return (
