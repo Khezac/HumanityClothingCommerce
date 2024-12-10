@@ -21,7 +21,7 @@
     color: #F5F6F5;
 }
 
-input[type="radio"] {
+.inputRadio {
     appearance: none;
     background-color: transparent;
     margin: 0;
@@ -32,10 +32,10 @@ input[type="radio"] {
     cursor: pointer;
 }
 
-input[type="radio"]:hover {
+.inputRadio:hover {
     background-color: #DCE4DC;
 }
 
-input[type="radio"]:checked {
+.inputRadio:checked {
     background-color: #8DB38B;
 }
