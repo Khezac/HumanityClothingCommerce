@@ -21,3 +21,8 @@
 .productCategory {
     color: var(--font-selected-color);
 }
+
+.price {
+    text-wrap: nowrap;
+    color: var(--font-selected-color);
+}
