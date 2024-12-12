@@ -4,7 +4,7 @@
     display: flex;
     flex-direction: column;
     gap: 4rem;
-    max-width: 1470px;
+    max-width: 1263px;
 }
 
 .loadingContainer {
@@ -27,10 +27,6 @@
     font-weight: bold;
     border-bottom: 1px solid black;
     margin-bottom: 1rem;
-}
-
-.recomendedProducts {
-    overflow: hidden;
 }
 
 .recomendedProducts > h1 {
