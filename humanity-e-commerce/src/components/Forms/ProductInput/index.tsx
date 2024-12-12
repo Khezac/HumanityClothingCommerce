@@ -19,6 +19,7 @@ export const ProductInput = (props: InputProps) => {
 
     const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
         props.setValue(e.target.value);
+
         removeAttribute(e.target.name);
     }
 

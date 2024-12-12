@@ -22,7 +22,7 @@ export const ProductListCard = ({ item }: ProductCardProps) => {
                     <p>{item.name}</p>
                     <p className={styles.productCategory}>{item.category}</p>
                 </div>
-                <p>R$ {parseFloat(item.unit_price).toFixed(2)}</p>
+                <p className={styles.price}>R$ {parseFloat(item.unit_price).toFixed(2)}</p>
             </div>
         </div>
     )

@@ -23,7 +23,13 @@ export const CreateProductForm = (props: CreateProductProps) => {
     const [description, setDescription] = useState<string>("");
 
     const handleInfo = () => {
-        const sizes = props.product?.size.match(/\b\d+\b|\b[A-Za-z]+\b/g)?.join(",")
+        let sizes;
+
+        if(props.product) {
+            sizes = props.product?.size.match(/\b\d+\b|\b[A-Za-z]+\b/g)?.join(",")
+        } else {
+            sizes = size.match(/\b\d+\b|\b[A-Za-z]+\b/g)?.join(",");
+        }
 
         const newProduct: NewProductType = {
             product_id: props.product?.product_id,
