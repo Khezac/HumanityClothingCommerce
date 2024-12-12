@@ -18,7 +18,7 @@
 
 .cardMasculino, .cardFeminino {
     width: 49%;
-    height: 50vh;
+    height: 380px;
     display: flex;
     align-items: flex-end;
     justify-content: flex-end;

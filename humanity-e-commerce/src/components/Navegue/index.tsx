@@ -2,13 +2,18 @@ import styles from './styles.module.css'
 import { IoShirtOutline } from "react-icons/io5";
 import { BiCartAlt } from "react-icons/bi";
 import { CgProfile } from "react-icons/cg";
+import { useNavigate } from 'react-router';
 
 export const Navegue = () => {
+    const navigate = useNavigate();    
+    
     return (
         <section className={styles.navegueContainer}>
             <h1>Navegue</h1>
             <div className={styles.cardsContainer}>
-                <div className={styles.navegueCard}>
+                <div className={styles.navegueCard}
+                    onClick={() => {navigate('/ProductListPage/')}}
+                >
                     <div className={styles.cardIcon}>
                         <IoShirtOutline size={45} color='#DCE4DC' />
                     </div>

@@ -2,11 +2,11 @@ import { useNavigate } from 'react-router';
 import { ProductType } from '../../types'
 import styles from './styles.module.css'
 
-type ProductCardProps = {
+type RecomendedProductProps = {
         item: ProductType;
 }
 
-export const ProductCard = ({ item }: ProductCardProps) => {
+export const ProductCard = ({ item }: RecomendedProductProps) => {
 
     const navigate = useNavigate();
 
@@ -16,13 +16,15 @@ export const ProductCard = ({ item }: ProductCardProps) => {
             window.location.reload()
         }
         }>
-            <img className={styles.productImg} src={`data:${item.images[0].type};base64,${item.images[0].bytes}`}/>
+            <div className={styles.productImgContainer}>
+                <img className={styles.productImg} src={`data:${item.images[0].type};base64,${item.images[0].bytes}`}/>
+            </div>
             <div className={styles.productInfo}>
                 <div>
                     <p>{item.name}</p>
                     <p className={styles.productCategory}>{item.category}</p>
                 </div>
-                <p>R$ {parseFloat(item.unit_price).toFixed(2)}</p>
+                <p className={styles.price}>R$ {parseFloat(item.unit_price).toFixed(2)}</p>
             </div>
         </div>
     )
