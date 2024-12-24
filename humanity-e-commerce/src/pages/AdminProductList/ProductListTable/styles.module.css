@@ -1,0 +1,48 @@
+.productTable {
+    width: 100%;
+    text-align: left;
+    display: flex;
+    flex-direction: column;
+    margin-top: 1.5rem;
+}
+
+.tableHead {
+    display: flex;
+    border-bottom: 2px solid #8DB38B;
+}
+
+.tableHead > th > p {
+    font-size: 24px;
+    font-weight: 400;
+    color: #04724D;
+    cursor: pointer;
+    width: fit-content;
+}
+
+.productNameColumnHead, .productNameColumnHeadSelected {
+    display: flex;
+    width: 60%;
+    align-items: center;
+}
+
+.orderTableHead, .orderTableHeadSelected { 
+    width: 17.5%
+}
+
+.productNameColumnHeadSelected, .orderTableHeadSelected {
+    border-bottom: 4px solid #8DB38B;
+}
+
+.loadingContainer {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: flex-end;
+    height: 5rem;
+}
+
+.conditionalTable {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+}
