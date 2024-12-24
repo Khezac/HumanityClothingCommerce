@@ -172,7 +172,10 @@ export const ProductImageCapture = (props: ImageCaptureProps) => {
                             }
 
                             {props.imageError &&
-                                <p className={styles.imgErrorMsg}>Necessário ao menos uma imagem</p>
+                                <>
+                                    <p className={styles.imgErrorMsgNotDeleted}>Imagem não excluida!</p>
+                                    <p className={styles.imgErrorMsg}>Necessário ao menos uma imagem</p>
+                                </>
                             }
                         </div>
                         {props.isAtLimit ?
