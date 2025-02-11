@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react"
 import { ProductType } from "../../types"
-import { ProductCard } from "../ProductCard"
 import styles from "./styles.module.css"
+import { ProductCard } from "../ProductCard"
 
 
 type TopVendasProps = {

@@ -1,15 +1,26 @@
 .productCard {
+    max-width: 23%;
     cursor: pointer;
-    margin-top: 24px;
-    width: 300px;
+    margin-top: 34px;
+}
+
+.productImgContainer:hover > .productImg {
+    scale: 1.1;
+    transition: ease-in-out 0.1s;
+    box-shadow: 0px 0px 20px 0px rgba(0, 0, 0, 0.26);
+}
+
+.productImgContainer {
+    width: 250px;
+    height: 340px;
+    border-radius: 4px;
+    overflow: hidden;    
 }
 
 .productImg {
-    width: 100%;
-    height: 38vh;
+    width: 250px;
+    height: 340px;
     object-fit: cover;
-    border-radius: 4px;
-    min-height: 350px;
 }
 
 .productInfo {
@@ -19,5 +30,10 @@
 }
 
 .productCategory {
+    color: var(--font-selected-color);
+}
+
+.price {
+    text-wrap: nowrap;
     color: var(--font-selected-color);
 }

@@ -4,7 +4,7 @@ import { useParams } from 'react-router';
 import { getAllProducts, getProductById } from '../../services/productService';
 import { CartType, ImageType, ProductType } from '../../types';
 import { ProductPageImages } from '../../components/ProductPageImages';
-import { RecomendedProductCard } from '../../components/RecomendedProductCard';
+import { ProductCard } from '../../components/ProductCard';
 import { ProductPageInfos } from '../../components/ProductPageInfos';
 import { ring2 } from 'ldrs';
 
@@ -91,7 +91,7 @@ export const ProductPage = () => {
                         {recomendations && recomendations.map((element, index) => {
                             if (index <= 10) {
                                 return (
-                                    <RecomendedProductCard
+                                    <ProductCard
                                         item={element}
                                         key={element.product_id}
                                     />
