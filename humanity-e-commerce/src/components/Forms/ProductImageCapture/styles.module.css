@@ -177,6 +177,18 @@
     cursor: pointer;
 }
 
+.imgErrorMsgNotDeleted{
+    color: #fd5656;
+    font-weight: bold;
+    font-size: 24px;
+    width: 75%;
+    text-align: center;
+    position: absolute;
+    top: 45%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+}
+
 .imgErrorMsg {
     color: #fd5656;
     width: 75%;
