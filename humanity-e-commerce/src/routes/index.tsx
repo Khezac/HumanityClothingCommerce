@@ -4,6 +4,7 @@ import { AdminCreateProduct } from "../pages/AdminCreateProduct"
 import { AdminProductList } from "../pages/AdminProductList"
 import { ProductPage } from "../pages/ProductPage"
 import { ProductListPage } from "../pages/ProductListPage"
+import { LoginPage } from "../pages/Login"
 
 export const Rotas = () => {
     return (
@@ -16,6 +17,7 @@ export const Rotas = () => {
             <Route path="/productPage/:id" element={<ProductPage/>}/>
             <Route path="/productListPage" element={<ProductListPage/>}/>
             <Route path="/productListPage/:gender" element={<ProductListPage/>}/>
+            <Route path="/login" element={<LoginPage/>}/>
         </Routes>
     )
 }
