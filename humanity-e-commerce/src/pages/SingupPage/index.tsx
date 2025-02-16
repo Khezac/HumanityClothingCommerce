@@ -133,7 +133,7 @@ export const SignupPage = () => {
                         placeholder="Confirme sua senha" 
                         type={confirmPasswordType}
                     />
-                    {!isPasswordEqual && (checkPasswordValue != '' || passwordValue != '') ? <p className={styles.passwordErrorMsg}>As senhas são diferentes</p> : <></>}
+                    {!isPasswordEqual && isPasswordStrong && (checkPasswordValue != '' || passwordValue != '') ? <p className={styles.passwordErrorMsg}>As senhas são diferentes</p> : <></>}
                     {!isPasswordStrong && (checkPasswordValue != '' || passwordValue != '') ? <p className={styles.passwordErrorMsg}>Senha muito fraca</p> : <></>}
                     <button 
                         type="button"
