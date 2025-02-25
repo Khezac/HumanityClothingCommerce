@@ -5,6 +5,7 @@ import { AdminProductList } from "../pages/AdminProductList"
 import { ProductPage } from "../pages/ProductPage"
 import { ProductListPage } from "../pages/ProductListPage"
 import { LoginPage } from "../pages/Login"
+import { SignupPage } from "../pages/SingupPage"
 
 export const Rotas = () => {
     return (
@@ -18,6 +19,7 @@ export const Rotas = () => {
             <Route path="/productListPage" element={<ProductListPage/>}/>
             <Route path="/productListPage/:gender" element={<ProductListPage/>}/>
             <Route path="/login" element={<LoginPage/>}/>
+            <Route path="/signup" element={<SignupPage/>}/>
         </Routes>
     )
 }

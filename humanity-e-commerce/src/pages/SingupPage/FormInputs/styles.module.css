@@ -1,0 +1,41 @@
+.emailInput, .emailInputError, checkPasswordInput {
+    padding: 0.5rem 1.25rem 0.5rem 1.25rem;
+    width: 100%;
+    border-radius: 12px;
+    border: 0.5px solid #727272;
+    color: #727272;
+    background-color: transparent;    
+}
+
+.emailInputError, .checkPasswordError {
+    outline: 1px solid red;
+}
+
+.emailErrorMsg, .passwordErrorMsg {
+    position: absolute;
+    top: 2.5rem;
+    color: red;
+}
+
+.passwordErrorMsg {
+    top: 14rem
+}
+
+.inputContainer > input::placeholder {
+    color: #727272;
+    font-weight: 300;
+}
+
+.showPasswordBtn, .showConfirmPasswordBtn {
+    background-color: transparent;
+    border: none;
+    outline: none;
+    cursor: pointer;
+    position: absolute;
+    right: 1rem;
+    top: 8.3rem;
+}
+
+.showConfirmPasswordBtn {
+    top: 12.1rem;    
+}

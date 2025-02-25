@@ -1,0 +1,61 @@
+.passwordStrengthContainer {
+    width: 100%;
+    color: #727272;
+    gap: 0.5rem;
+    display: flex;
+    flex-direction: column;
+}
+
+.strengthSubtitle {
+    display: flex;
+    justify-content: space-between;
+    position: relative;
+    align-items: center;
+}
+
+.hintIcon {
+    height: 27px;
+}
+
+.hintIcon:hover + .passwordHint {
+    transition-property: opacity;
+    transition-duration: 0.15s;
+    transition-timing-function: ease-in;
+    opacity: 1;
+}
+
+.passwordHint {
+    background-color: gainsboro;
+    padding: 0.7rem 1rem 0.7rem 1rem;
+    border-radius: 8px;
+    position: absolute;
+    right: -0.5rem;
+    transform: translate(100%,0);
+    transition-property: opacity;
+    transition-duration: 0.15s;
+    transition-timing-function: ease-in;
+    opacity: 0;
+}
+
+.passwordHint > p {
+    font-weight: 600;
+}
+
+.passwordHint > ul {
+    margin-left: 1rem;
+    list-style: circle;
+}
+
+.strengthBar {
+    background-color: gainsboro;
+    width: 100%;
+    height: 0.8rem;
+    border-radius: 25px;
+    position: relative;
+    overflow: hidden;
+}
+
+.innerStrenghtBar {
+    position: absolute;
+    height: 100%;
+}
