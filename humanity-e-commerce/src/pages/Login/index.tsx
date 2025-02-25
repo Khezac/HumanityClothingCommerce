@@ -2,9 +2,12 @@ import styles from "./styles.module.css"
 import LogoDark from '../../assets/Logos/LogoWhite.png'
 import { useState } from "react"
 import { FaRegEye, FaRegEyeSlash } from "react-icons/fa6";
+import { useNavigate } from "react-router";
 
 export const LoginPage = () => {
     const [passwordType, setPasswordType] = useState<string>("password");
+
+    const navigate = useNavigate();
 
     return (
         <main className={styles.mainContainer}>
@@ -24,7 +27,7 @@ export const LoginPage = () => {
                 <button className={styles.continueBtn} type="submit">Continuar</button>
                 <div className={styles.underContinueBtn}>
                     <a>Esqueci minha senha</a>
-                    <p>Não tem uma conta?<a> Cadastre-se</a></p>
+                    <p>Não tem uma conta?<a onClick={() => {navigate('/signup')}}> Cadastre-se</a></p>
                 </div>
             </div>
             <div className={styles.separatorContainer}>
